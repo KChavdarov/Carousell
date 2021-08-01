@@ -1,2 +1,2 @@
 # Carousell
- Car sales application
+ Car trading application
