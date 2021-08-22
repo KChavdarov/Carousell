@@ -1,1 +1,36 @@
-<p>register works!</p>
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="registerHandler()">
+    <label>
+        First Name
+        <input type="text" formControlName="firstName">
+    </label>
+
+    <label>
+        Last Name
+        <input type="text" formControlName="lastName">
+    </label>
+
+    <label>
+        Email
+        <input type="text" formControlName="email">
+    </label>
+
+    <label>
+        Phone
+        <input type="text" formControlName="phone">
+    </label>
+
+    <ng-container formGroupName="passwords">
+        <label>
+            Password
+            <input type="password" formControlName="password">
+        </label>
+
+        <label>
+            Confirm Password
+            <input type="password" formControlName="confirmPassword">
+        </label>
+    </ng-container>
+
+    <button type="submit">Register</button>
+
+</form>

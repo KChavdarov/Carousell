@@ -35,6 +35,7 @@ const userSchema = new Schema({
     },
     _isAdmin: Boolean,
     _createdAt: Date,
+    _updatedAt: Date,
 
 });
 
