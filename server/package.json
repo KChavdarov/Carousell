@@ -1,19 +1,25 @@
 {
   "name": "carousell-rest-api",
   "version": "1.0.0",
-  "description": "backend for carousell app",
+  "description": "backend service for carousell app",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kiril Ivanov",
   "license": "ISC",
   "dependencies": {
-      "bcrypt": "^5.0.1",
-      "express": "^4.17.1",
-      "express-validator": "^6.12.1",
-      "jsonwebtoken": "^8.5.1",
-      "mongoose": "^5.13.5"
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
