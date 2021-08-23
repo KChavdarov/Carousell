@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { CarsService } from '../cars.service';
 
 @Component({
   selector: 'app-create',
@@ -10,10 +11,9 @@ export class CreateComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
   files: {} = {};
 
-  constructor() {}
+  constructor(private carsService: CarsService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   fileSelectHandler(event: any) {
     this.files = event.target.files;
@@ -24,8 +24,8 @@ export class CreateComponent implements OnInit {
     const formData = new FormData();
 
     for (let [k, v] of Object.entries(this.form.value)) {
-      if (v != 'images') {
-        formData.append(k, v as string);
+      if (k != 'images') {
+        formData.append(k, JSON.stringify(v));
       }
     }
 
@@ -33,6 +33,9 @@ export class CreateComponent implements OnInit {
       formData.append(k, v as string);
     }
 
-  }
+    console.log(this.form.value);
+    this.carsService.createCar(formData).subscribe(res => console.log(res)
+    );
 
+  }
 }

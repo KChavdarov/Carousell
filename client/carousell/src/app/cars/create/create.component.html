@@ -1,5 +1,30 @@
 <form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
-    <input type="text" name="description" #description="ngModel" ngModel>
+
+    <label>Make<input type="text" name="make" #description="ngModel" ngModel></label>
+    <label>Model<input type="text" name="model" #description="ngModel" ngModel></label>
+    <label>Title<input type="text" name="title" #description="ngModel" ngModel></label>
+    <label>Description<textarea name="description" ngModel></textarea></label>
+    <label>Year<input type="number" name="year" #description="ngModel" ngModel></label>
+    <label>Engine<input type="text" name="engine" #description="ngModel" ngModel></label>
+    <label>Transmission<input type="text" name="transmission" #description="ngModel" ngModel></label>
+    <label>Power<input type="number" name="power" #description="ngModel" ngModel></label>
+    <label>Color<input type="text" name="color" #description="ngModel" ngModel></label>
+    <label>Mileage<input type="number" name="mileage" #description="ngModel" ngModel></label>
+    <label>Price<input type="number" name="price" #description="ngModel" ngModel></label>
+    <fieldset ngModelGroup="comfort">
+        <label>Air Conditioning<input type="checkbox" name="aircon" ngModel></label>
+        <label>Stereo<input type="checkbox" name="stereo" ngModel></label>
+    </fieldset>
+    <fieldset ngModelGroup="safety">
+        <label>ESP<input type="checkbox" name="esp" ngModel></label>
+        <label>ABS<input type="checkbox" name="abs" ngModel></label>
+    </fieldset>
+    <fieldset ngModelGroup="others">
+        <label>Insurance<input type="checkbox" name="insurance" ngModel></label>
+        <label>Registration<input type="checkbox" name="registration" ngModel></label>
+    </fieldset>
+
     <input #images="ngModel" (change)="fileSelectHandler($event)" type="file" name="images" multiple required ngModel>
+
     <button type="submit" [disabled]="form.invalid">Submit</button>
 </form>
