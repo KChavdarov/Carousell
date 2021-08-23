@@ -8,9 +8,9 @@ const { createToken } = require('../util/jwt.js');
 router.post('/register', isGuest(),
     body('firstName', 'Please enter your first name!').trim().notEmpty(),
     body('lastName', 'Please enter your last name!').trim().notEmpty(),
-    body('email').trim().isEmail().notEmpty().normalizeEmail(),
-    body('phone', 'Please enter a valid Bulgarian phone number').matches(/^\+359\d{9}$/),
-    body('password', 'Password must be at least 3 characters long').trim().isLength({ min: 3 }),
+    body('email', 'Please enter a valid email!').trim().isEmail().notEmpty().normalizeEmail(),
+    body('phone', 'Please enter a valid Bulgarian phone number!').matches(/^\+359\d{9}$/),
+    body('password', 'Password must be at least 3 characters long!').trim().isLength({ min: 3 }),
     async (req, res) => {
         try {
             const errors = Object.values(validationResult(req).mapped());

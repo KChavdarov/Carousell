@@ -8,11 +8,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(data: User) {
-    return this.http.post('http://localhost:3000' + '/api/user/register', data, { withCredentials: true });
+    return this.http.post('/api/user/register', data);
   }
 
   login(data: { email: string, password: string; }) {
-    return this.http.post('http://localhost:3000' + '/api/user/login', data, { withCredentials: true });
+    return this.http.post('/api/user/login', data);
   };
 
 }

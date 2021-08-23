@@ -13,7 +13,7 @@ module.exports = function parseToken() {
             } catch (err) {
                 console.log(err.message);
                 res.clearCookie(COOKIE_NAME);
-                res.status(401).json({ message: 'Please sign in' });
+                res.status(401).json({ message: 'Please sign in!' });
             }
         } else {
             console.log('Request by guest user');
