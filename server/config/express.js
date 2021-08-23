@@ -6,6 +6,7 @@ const logger = require('../middleware/logger');
 const router = require('./router');
 const parseToken = require('../middleware/parseToken');
 const auth = require('../middleware/auth');
+const storage = require('../middleware/storage');
 
 module.exports = (app) => {
     app.use(cors(CORS));
@@ -16,6 +17,7 @@ module.exports = (app) => {
 
     app.use(parseToken());
     app.use(auth());
+    app.use(storage());
 
     app.use('/api', router);
     app.get('/', (req, res) => res.send('API access available at endpoint \'/api\''));

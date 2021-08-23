@@ -11,7 +11,11 @@ const config = {
             origin: ['http://localhost:4200'],
             credentials: true
         },
-        CLOUDINARY: {}
+        CLOUDINARY: {
+            cloud_name: 'dm2dq27dn',
+            api_key: '675932744897211',
+            api_secret: '15ylVjWRAr09g5hcnQ43CSrFjxs',
+        }
     },
     production: {},
 };
