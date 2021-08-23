@@ -5,11 +5,15 @@ import { RegisterComponent } from './auth/register/register.component';
 const routes: Routes = [
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+  },
+  {
+    path: 'cars',
+    loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
   }
 ];
 

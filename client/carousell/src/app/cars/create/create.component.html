@@ -1,0 +1,5 @@
+<form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
+    <input type="text" name="description" #description="ngModel" ngModel>
+    <input #images="ngModel" (change)="fileSelectHandler($event)" type="file" name="images" multiple required ngModel>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+</form>
