@@ -33,12 +33,17 @@ const userSchema = new Schema({
     replies: {
         type: Array
     },
-    _isAdmin: Boolean,
-    _createdAt: Date,
-    _updatedAt: Date,
+    isAdmin: { type: Boolean, default: false },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
 
 });
 
 const User = model('User', userSchema);
 
 module.exports = User;
+
+// PRODUCTS: [{
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Shoe'
+// }],

@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const { CORS } = require('./index');
 const logger = require('../middleware/logger');
 const router = require('./router');
+const parseToken = require('../middleware/parseToken');
+const auth = require('../middleware/auth');
 
 module.exports = (app) => {
     app.use(cors(CORS));
@@ -12,6 +14,10 @@ module.exports = (app) => {
     app.use(express.json());
     app.use(logger());
 
+    app.use(parseToken());
+    app.use(auth());
+
     app.use('/api', router);
-    app.get('/', (req, res) => res.send('API access available at endpoint \'/data\''));
+    app.get('/', (req, res) => res.send('API access available at endpoint \'/api\''));
+
 };
