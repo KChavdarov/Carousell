@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { authError, authSuccess } from '../+store/actions';
@@ -14,19 +14,80 @@ import { AuthService } from '../auth.service';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
 
+  get f() {
+    return this.form.controls;
+  }
+
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private store: Store<AuthState>) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      firstName: [],
-      lastName: [],
-      email: [],
-      phone: [],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      terms: ['', [Validators.requiredTrue]],
       passwords: this.fb.group({
-        password: [],
-        confirmPassword: [],
+        password: ['', [Validators.required, Validators.minLength(3)]],
+        confirmPassword: ['', []],
+      }, {
+        validators: [this.passwordMismatch],
+        asyncValidators: null,
+        updateOn: 'change'
       })
     });
+  }
+
+  get passwords() {
+    return this.form.controls.passwords;
+  }
+
+  get password() {
+    return this.form.get('passwords.password');
+  }
+
+  get confirmPassword() {
+    return this.form.get('passwords.confirmPassword');
+  }
+
+
+  onPasswordInput(trigger?: AbstractControl | null) {
+    if (trigger && trigger.value.length > 3) { trigger?.markAsTouched({ onlySelf: true }); }
+    if (this.passwords.hasError('passwordMismatch') && this.password?.touched && this.confirmPassword?.touched) {
+      if (this.password.valid) {
+        this.password.setErrors({ passwordMismatch: true });
+      } else if (!this.password.hasError('passwordMismatch')) {
+        const errors = this.password.errors;
+        errors!.passwordMismatch = true;
+        this.password.setErrors(errors);
+      }
+      this.confirmPassword?.setErrors({ passwordMismatch: true });
+    } else {
+      if (this.password?.errors) {
+        const errors = this.password.errors;
+        delete errors?.passwordMismatch;
+        if (Object.keys(errors || {}).length == 0) {
+          this.password.setErrors(null);
+        } else {
+          this.password.setErrors(errors);
+        }
+      } else {
+        this.password?.setErrors(null);
+      }
+      this.confirmPassword?.setErrors(null);
+    }
+  }
+
+  passwordMismatch(passwords: FormGroup): ValidationErrors | null {
+    let password = passwords.get('password');
+    let confirmPassword = passwords.get('confirmPassword');
+    let filled = password?.value && confirmPassword?.value;
+
+    if (filled && password?.value != confirmPassword?.value) {
+      return { passwordMismatch: true };
+    }
+
+    return null;
   }
 
   registerHandler() {
@@ -34,7 +95,7 @@ export class RegisterComponent implements OnInit {
       firstName: this.form.get('firstName')?.value,
       lastName: this.form.get('lastName')?.value,
       email: this.form.get('email')?.value,
-      phone: this.form.get('phone')?.value,
+      phone: '+359' + this.form.get('phone')?.value,
       password: this.form.get('passwords.password')?.value,
       confirmPassword: this.form.get('passwords.confirmPassword')?.value,
     };

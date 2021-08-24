@@ -1,0 +1,67 @@
+.form-container {
+    margin: 2rem auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+form {
+    max-width: 40rem;
+    flex-basis: 100%;
+    background-color: white;
+    padding: 4rem 3%;
+    box-shadow: 0px 1px 15px 0px #00000021;
+    border-radius: 0.3rem;
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-title {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.form-field {
+    width: 100%;
+    padding-bottom: 1rem;
+    margin: auto 2%;
+}
+
+.form-group .form-field {
+    flex: 1 1 auto;
+    width: 45%;
+    padding-bottom: 1rem;
+    min-width: 12rem;
+}
+
+button[type="submit"] {
+    margin: 0.2rem auto;
+    display: block;
+}
+
+// #password-group.ng-touched.ng-invalid .mat-form-field-underline {
+//     background: #f44336 !important;
+// }
+
+// #password-group.ng-touched.ng-invalid .mat-form-field-label {
+//     color: #f44336 !important;
+// }
+
+#terms {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+:host::ng-deep.mat-checkbox-layout {
+    white-space: normal !important;
+}
+
+:host::ng-deep.mat-checkbox-inner-container {
+    margin-top: 4px;
+}
