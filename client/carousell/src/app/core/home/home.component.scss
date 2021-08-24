@@ -1,0 +1,41 @@
+.grid-container {
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.poster {
+  color: #fafafa;
+  height: 16vw;
+  min-height: 20vh;
+  background: linear-gradient(rgba(255 255 255 / 50%), rgba(0, 0, 0, 0.5)), url("https://res.cloudinary.com/dm2dq27dn/image/upload/v1629798805/carousell/oliur-ovrOPhu8vSw-unsplash_1_ahtt4h.jpg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headline{
+  font-size: calc(0.8rem + 5vw);
+  text-shadow: 0px 0px 20px #000000;
+  font-weight: bolder;
+}

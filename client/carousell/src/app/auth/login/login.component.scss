@@ -1,0 +1,31 @@
+.form-container {
+    margin: 2rem auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+form {
+    max-width: 40rem;
+    flex-basis: 100%;
+    background-color: white;
+    padding: 4rem;
+    box-shadow: 0px 1px 15px 0px #00000021;
+    border-radius: 0.3rem;
+}
+
+.form-title {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.form-field {
+    width: 100%;
+    padding-bottom: 1rem;
+}
+
+button[type="submit"] {
+    margin: 0.2rem auto;
+    display: block;
+}

@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './+store/reducers';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -19,7 +20,8 @@ import { authReducer } from './+store/reducers';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forFeature('auth', authReducer)
+    StoreModule.forFeature('auth', authReducer),
+    MaterialModule,
   ],
   providers: [
     AuthService,

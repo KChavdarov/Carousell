@@ -1,0 +1,66 @@
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.sidenav .mat-toolbar {
+    background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+.site-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.navbar {
+    box-shadow: 0px 2px 20px 0px #000000;
+}
+
+.mat-flat-button.active {
+    background-color: rgb(13 17 37 / 35%);
+}
+
+.mat-flat-button:hover {
+    background-color: rgb(13 17 37 / 50%);
+    transition: background-color 200ms;
+}
+
+.logo {
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+.logo:hover {
+    text-shadow: 0 1px 14px #00000085;
+    font-size: 1.3rem;
+    transition: font-size 150ms;
+}
+
+.poster {
+    color: #fafafa;
+    height: 16vw;
+    min-height: 20vh;
+    background: linear-gradient(rgba(255 255 255 / 50%), rgba(0, 0, 0, 0.5)), url("https://res.cloudinary.com/dm2dq27dn/image/upload/v1629798805/carousell/oliur-ovrOPhu8vSw-unsplash_1_ahtt4h.jpg");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headline {
+    font-size: calc(0.8rem + 5vw);
+    text-shadow: 0px 0px 20px #000000;
+    font-weight: bolder;
+}
