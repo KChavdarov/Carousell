@@ -10,20 +10,20 @@ form {
     max-width: 40rem;
     flex-basis: 100%;
     background-color: white;
-    padding: 4rem 3%;
+    padding: 1rem 3% 4rem 3%;
     box-shadow: 0px 1px 15px 0px #00000021;
     border-radius: 0.3rem;
+}
+
+.form-title {
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .form-group {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-}
-
-.form-title {
-    text-transform: uppercase;
-    text-align: center;
 }
 
 .form-field {
@@ -37,6 +37,18 @@ form {
     width: 45%;
     padding-bottom: 1rem;
     min-width: 12rem;
+}
+
+.mat-icon {
+    margin: auto 0.5rem;
+}
+
+.mat-form-field.ng-invalid.ng-touched .mat-icon {
+    color: #f44336;
+}
+
+.mat-form-field.ng-valid .mat-icon {
+    color: #3F51B5;
 }
 
 button[type="submit"] {
@@ -64,4 +76,25 @@ button[type="submit"] {
 
 :host::ng-deep.mat-checkbox-inner-container {
     margin-top: 4px;
+}
+
+header.form-header {
+    display: flex;
+    margin: 1rem 2% 2rem 2%;
+}
+
+a.auth-button {
+    text-align: center;
+    text-decoration: none;
+    color: #3F51B5;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex: 1 1 auto;
+    border: none;
+    background-color: white;
+}
+
+a.auth-button.active {
+    border-bottom: 1.8px solid #3F51B5;
 }

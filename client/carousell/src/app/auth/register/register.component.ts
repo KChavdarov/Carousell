@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^0\d{9}$/)]],
       terms: ['', [Validators.requiredTrue]],
       passwords: this.fb.group({
         password: ['', [Validators.required, Validators.minLength(3)]],
@@ -95,9 +95,8 @@ export class RegisterComponent implements OnInit {
       firstName: this.form.get('firstName')?.value,
       lastName: this.form.get('lastName')?.value,
       email: this.form.get('email')?.value,
-      phone: '+359' + this.form.get('phone')?.value,
+      phone: '+359' + this.form.get('phone')?.value.slice(-9),
       password: this.form.get('passwords.password')?.value,
-      confirmPassword: this.form.get('passwords.confirmPassword')?.value,
     };
 
     this.authService.register(data).subscribe(

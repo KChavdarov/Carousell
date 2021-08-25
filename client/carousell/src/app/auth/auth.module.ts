@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './+store/reducers';
 import { MaterialModule } from '../material/material.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -22,6 +23,7 @@ import { MaterialModule } from '../material/material.module';
     HttpClientModule,
     StoreModule.forFeature('auth', authReducer),
     MaterialModule,
+    RouterModule,
   ],
   providers: [
     AuthService,

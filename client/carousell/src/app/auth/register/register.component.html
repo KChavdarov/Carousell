@@ -1,48 +1,15 @@
-<!-- <form *ngIf="form" [formGroup]="form" (ngSubmit)="registerHandler()">
-    <label>
-        First Name
-        <input type="text" formControlName="firstName">
-    </label>
-
-    <label>
-        Last Name
-        <input type="text" formControlName="lastName">
-    </label>
-
-    <label>
-        Email
-        <input type="text" formControlName="email">
-    </label>
-
-    <label>
-        Phone
-        <input type="text" formControlName="phone">
-    </label>
-
-    <ng-container formGroupName="passwords">
-        <label>
-            Password
-            <input type="password" formControlName="password">
-        </label>
-
-        <label>
-            Confirm Password
-            <input type="password" formControlName="confirmPassword">
-        </label>
-    </ng-container>
-
-    <button type="submit">Register</button>
-
-</form> -->
-
 <div class="container">
     <div class="form-container">
         <form *ngIf="form" [formGroup]="form" (ngSubmit)="registerHandler()">
-            <h2 class="form-title">Register details</h2>
+            <header class="form-header">
+                <a class="auth-button" routerLinkActive="active" routerLink="/login">Login</a>
+                <a class="auth-button" routerLinkActive="active" routerLink="/register">Register</a>
+            </header>
             <div class="form-group">
                 <mat-form-field class="form-field">
                     <mat-label>First name</mat-label>
                     <input matInput type="text" formControlName="firstName" placeholder="Kiril">
+                    <mat-icon class="mat-primary" matPrefix>account_circle</mat-icon>
                     <mat-error *ngIf="f.firstName.hasError('required')">
                         First name is <strong>required</strong>
                     </mat-error>
@@ -50,6 +17,7 @@
                 <mat-form-field class="form-field">
                     <mat-label>Last name</mat-label>
                     <input matInput type="text" formControlName="lastName" placeholder="Chavdarov">
+                    <mat-icon class="mat-primary" matPrefix>account_circle</mat-icon>
                     <mat-error *ngIf="f.lastName.hasError('required')">
                         Last name is <strong>required</strong>
                     </mat-error>
@@ -59,7 +27,8 @@
             <div class="form-group">
                 <mat-form-field class="form-field">
                     <mat-label>Email</mat-label>
-                    <input matInput type="text" formControlName="email" placeholder="Ex. example@example.com">
+                    <input matInput type="text" formControlName="email" placeholder="example@example.com">
+                    <mat-icon class="mat-primary" matPrefix>alternate_email</mat-icon>
                     <mat-error *ngIf="f.email.hasError('email') && !f.email.hasError('required')">
                         Please enter a valid email address
                     </mat-error>
@@ -69,7 +38,8 @@
                 </mat-form-field>
                 <mat-form-field class="form-field">
                     <mat-label>Phone</mat-label>
-                    <input matInput type="text" formControlName="phone" placeholder="888123123">
+                    <input matInput type="text" formControlName="phone" placeholder="0888123123">
+                    <mat-icon class="mat-primary" matPrefix>phone_in_talk</mat-icon>
                     <mat-error *ngIf="f.phone.hasError('pattern') && !f.phone.hasError('required')">
                         Please enter a valid phone number
                     </mat-error>
@@ -83,19 +53,16 @@
                 <mat-form-field class="form-field">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" formControlName="password" (input)="onPasswordInput()">
+                    <mat-icon class="mat-primary" matPrefix>lock</mat-icon>
                     <mat-hint>Minimum 8 characters</mat-hint>
 
-                    <!-- <mat-error *ngIf="f.passwords.get('password')?.hasError('required')">
+                    <mat-error *ngIf="f.passwords.get('password')?.hasError('required')">
                         Password is <strong>required</strong>
                     </mat-error>
 
                     <mat-error *ngIf="f.passwords.get('password')?.hasError('minlength')">
-                        Password too short
-                    </mat-error> -->
-
-                    <!-- <mat-error *ngIf="f.passwords.hasError('passwordMismatch') && !f.passwords.hasError('required') && !f.passwords.hasError('minlength')">
-                        Passwords don't match
-                    </mat-error> -->
+                        Password must be at least 8 characters
+                    </mat-error>
 
                     <mat-error *ngIf="f.passwords.get('password')?.hasError('passwordMismatch')">
                         Passwords don't match
@@ -106,9 +73,10 @@
                 <mat-form-field class="form-field">
                     <mat-label>Confirm password</mat-label>
                     <input matInput type="password" formControlName="confirmPassword" (input)="onPasswordInput(f.passwords.get('confirmPassword'))">
-                    <!-- <mat-error *ngIf="f.passwords.hasError('passwordMismatch')">
+                    <mat-icon class="mat-primary" matPrefix>lock</mat-icon>
+                    <mat-error *ngIf="f.passwords.get('confirmPassword')?.hasError('passwordMismatch')">
                         Passwords don't match
-                    </mat-error> -->
+                    </mat-error>
                 </mat-form-field>
             </div>
 
