@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error => {
-        this.store.dispatch(authError());
+        this.store.dispatch(authError({error}));
       }
     );
   }

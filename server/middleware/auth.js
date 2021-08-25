@@ -1,16 +1,21 @@
 const bcrypt = require('bcrypt');
 const { SALT_ROUNDS } = require('../config/index.js');
-const { getUserByEmail, createUser } = require('../services/userService.js');
+const { getUserByEmail, createUser, getUserById } = require('../services/userService.js');
 
 module.exports = () => {
     return (req, res, next) => {
         req.auth = {
             register,
             login,
+            verifyUser,
         };
         next();
     };
 };
+
+async function verifyUser(id){
+    return getUserById(id);
+}
 
 async function register(data) {
 

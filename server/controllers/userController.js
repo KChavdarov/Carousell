@@ -45,6 +45,26 @@ router.post('/login', isGuest(), async (req, res) => {
     }
 });
 
+router.get('/verify', async (req, res) => {
+    try {
+        if (req.user) {
+            const user = await req.auth.verifyUser(req.user._id);
+            res.status(200).json(sanitizeUserData(user));
+        } else {
+            res.status(404).end();
+        }
+    } catch (error) {
+        console.log(error);
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.get('/logout', (req, res) => {
+    res.clearCookie(COOKIE_NAME);
+    res.status(204).send({ message: 'Logged out' });
+});
+
 
 function sanitizeUserData(user) {
     const { _id, firstName, lastName, email, phone, createdAt, updatedAt } = user;

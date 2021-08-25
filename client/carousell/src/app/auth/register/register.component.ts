@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
 import { authError, authSuccess } from '../+store/actions';
 import { AuthState } from '../+store/reducers';
 import { AuthService } from '../auth.service';
@@ -13,6 +14,8 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
+
+  minPassChars = environment.PASSWORD_CHARACTERS;
 
   get f() {
     return this.form.controls;
@@ -40,7 +43,7 @@ export class RegisterComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern(/^0\d{9}$/)]],
       terms: ['', [Validators.requiredTrue]],
       passwords: this.fb.group({
-        password: ['', [Validators.required, Validators.minLength(3)]],
+        password: ['', [Validators.required, Validators.minLength(this.minPassChars)]],
         confirmPassword: ['', []],
       }, {
         validators: [this.passwordMismatch],
@@ -51,7 +54,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onPasswordInput(trigger?: AbstractControl | null) {
-    if (trigger && trigger.value.length > 3) { trigger?.markAsTouched({ onlySelf: true }); }
+    if (trigger && trigger.value.length > Math.max(this.minPassChars / 2, 3)) { trigger?.markAsTouched({ onlySelf: true }); }
     if (this.passwords.hasError('passwordMismatch') && this.password?.touched && this.confirmPassword?.touched) {
       if (this.password.valid) {
         this.password.setErrors({ passwordMismatch: true });
@@ -104,7 +107,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error => {
-        this.store.dispatch(authError());
+        this.store.dispatch(authError({error}));
       }
     );
   }

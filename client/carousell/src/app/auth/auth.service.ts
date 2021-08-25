@@ -15,6 +15,13 @@ export class AuthService {
     return this.http.post<User>('/api/user/login', data);
   };
 
-  
+  verifyAuth() {
+    return this.http.get<User>('/api/user/verify');
+  }
+
+  logout() {
+    return this.http.get<User>('/api/user/logout');
+  }
+
 
 }

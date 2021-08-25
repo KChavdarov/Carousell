@@ -1,14 +1,16 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" mode="over" [opened]="false">
         <mat-toolbar>Menu</mat-toolbar>
-        <mat-nav-list *ngIf="!(user$ | async)">
-            <a mat-list-item [routerLink]="['/register']">Register</a>
-            <a mat-list-item [routerLink]="['/login']">Login</a>
-        </mat-nav-list>
-        <mat-nav-list *ngIf="user$ | async">
-            <a mat-list-item [routerLink]="['/register']">Search</a>
-            <a mat-list-item [routerLink]="['/login']">Create</a>
-        </mat-nav-list>
+        <ng-container *ngIf="!isLoading">
+            <mat-nav-list *ngIf="!(user$ | async)">
+                <a mat-list-item [routerLink]="['/register']">Register</a>
+                <a mat-list-item [routerLink]="['/login']">Login</a>
+            </mat-nav-list>
+            <mat-nav-list *ngIf="user$ | async">
+                <a mat-list-item [routerLink]="['/register']">Search</a>
+                <a mat-list-item [routerLink]="['/login']">Create</a>
+            </mat-nav-list>
+        </ng-container>
 
     </mat-sidenav>
     <mat-sidenav-content>
@@ -21,22 +23,22 @@
                     <span class="logo" routerLink='/'>
                         carousell
                     </span>
-                    <div *ngIf="!(user$ | async)" class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
-                        <a [routerLink]="['/login']" routerLinkActive="active" mat-flat-button color="primary">Login</a>
-                        <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Register</a>
-                        <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
-                    </div>
-                    <div *ngIf="user$ | async" class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
-                        <a [routerLink]="['/login']" routerLinkActive="active" mat-flat-button color="primary">Create</a>
-                        <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Delete</a>
-                        <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Random</a>
-                        <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
-                    </div>
+                    <ng-container *ngIf="!isLoading">
+                        <div *ngIf="!(user$ | async)" class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
+                            <a [routerLink]="['/login']" routerLinkActive="active" mat-flat-button color="primary">Login</a>
+                            <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Register</a>
+                            <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
+                        </div>
+                        <div *ngIf="user$ | async" class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
+                            <a [routerLink]="['/login']" routerLinkActive="active" mat-flat-button color="primary">Create</a>
+                            <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Delete</a>
+                            <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Random</a>
+                            <a (click)="logout()" mat-flat-button color="primary">Logout</a>
+                            <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
+                        </div>
+                    </ng-container>
                 </div>
             </mat-toolbar>
-            <!-- <div class="poster">
-            <div class="headline">Welcome to carousell!</div>
-            </div> -->
             <ng-content></ng-content>
         </div>
     </mat-sidenav-content>

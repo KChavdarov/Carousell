@@ -7,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -14,12 +16,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [
     HeaderComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
   ],
-  entryComponents: [LoginComponent],
+  entryComponents: [LoginComponent, ConfirmationDialogComponent],
   imports: [
     CommonModule,
     MaterialModule,
+    SharedModule,
     RouterModule,
     FontAwesomeModule,
   ],

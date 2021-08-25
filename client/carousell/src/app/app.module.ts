@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { MaterialModule } from './material/material.module';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MaterialModule } from './material/material.module';
     CoreModule,
     AuthModule,
     AppRoutingModule,
+    EffectsModule.forRoot(),
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     BrowserAnimationsModule,
