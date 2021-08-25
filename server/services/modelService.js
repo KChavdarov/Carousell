@@ -14,7 +14,7 @@ function getAllMakes() {
 function getModelsByMake(make) {
     const result = Model.aggregate()
         .unwind('bodyStyles')
-        .match({ make })
+        .match({ make: { $regex: new RegExp(`^${make}$`, 'i') } })
         .group({ _id: '$model', bodyTypes: { $addToSet: '$bodyStyles' } });
     return result;
 }

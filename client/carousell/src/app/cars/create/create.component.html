@@ -1,4 +1,4 @@
-<form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
+<!-- <form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
 
     <label>Make<input type="text" name="make" #description="ngModel" ngModel></label>
     <label>Model<input type="text" name="model" #description="ngModel" ngModel></label>
@@ -27,4 +27,58 @@
     <input #images="ngModel" (change)="fileSelectHandler($event)" type="file" name="images" multiple required ngModel>
 
     <button type="submit" [disabled]="form.invalid">Submit</button>
-</form>
+</form> -->
+
+
+
+
+
+
+
+<!-- <mat-form-field class="form-field">
+        <mat-label>Select images</mat-label>
+        <ngx-mat-file-input placeholder="Basic Input" [multiple]="true"> </ngx-mat-file-input>
+        <mat-icon class="mat-primary" matPrefix>collections</mat-icon>
+        <mat-error></mat-error>
+    </mat-form-field> -->
+
+
+
+<div class="container">
+    <div class="form-container">
+        <form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
+            <header class="form-header">
+                <h2>Create a new listing</h2>
+            </header>
+            <mat-stepper #stepper orientation="vertical">
+                <mat-step>
+                    <ng-template matStepLabel>Step 1</ng-template>
+                    <div class="form-group">
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Make</mat-label>
+                            <mat-select name="make" #make="ngModel" matInput type="text" placeholder="Car brand" (selectionChange)="makeSelectionHandler(make.value)" ngModel>
+                                <mat-option *ngFor="let make of (makes$ | async)" [value]="make">{{make}}</mat-option>
+                            </mat-select>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Model</mat-label>
+                            <mat-select name="model" #model="ngModel" matInput type="text" placeholder="Car Model" (selectionChange)="modelSelectionHandler(model.value)" ngModel>
+                                <mat-option *ngFor="let model of (models$ | async)" [value]="model._id">{{model._id}}</mat-option>
+                            </mat-select>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error></mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Step 2</ng-template>
+                </mat-step>
+            </mat-stepper>
+        </form>
+    </div>
+</div>

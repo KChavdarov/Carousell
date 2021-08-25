@@ -7,8 +7,8 @@
                 <a mat-list-item [routerLink]="['/login']">Login</a>
             </mat-nav-list>
             <mat-nav-list *ngIf="user$ | async">
-                <a mat-list-item [routerLink]="['/register']">Search</a>
-                <a mat-list-item [routerLink]="['/login']">Create</a>
+                <a mat-list-item [routerLink]="['/register']">Browse cars</a>
+                <a mat-list-item [routerLink]="['/cars/create']">Add listing</a>
             </mat-nav-list>
         </ng-container>
 
@@ -30,9 +30,8 @@
                             <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
                         </div>
                         <div *ngIf="user$ | async" class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
-                            <a [routerLink]="['/login']" routerLinkActive="active" mat-flat-button color="primary">Create</a>
-                            <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Delete</a>
-                            <a [routerLink]="['/register']" routerLinkActive="active" mat-flat-button color="primary">Random</a>
+                            <a [routerLink]="['/cars/search']" routerLinkActive="active" mat-flat-button color="primary">Browse cars</a>
+                            <a [routerLink]="['/cars/create']" routerLinkActive="active" mat-flat-button color="primary">Add listing</a>
                             <a (click)="logout()" mat-flat-button color="primary">Logout</a>
                             <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
                         </div>

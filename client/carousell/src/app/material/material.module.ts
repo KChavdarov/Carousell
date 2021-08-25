@@ -11,8 +11,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 const components = [
   LayoutModule,
@@ -34,10 +37,16 @@ const components = [
   MatInputModule,
   MatCheckboxModule,
   MatProgressSpinnerModule,
+  MatStepperModule,
+  MatSelectModule,
+  MaterialFileInputModule,
 ];
 
 @NgModule({
   imports: [components],
   exports: [components],
+  providers: [
+
+  ]
 })
 export class MaterialModule {}

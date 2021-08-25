@@ -7,11 +7,21 @@ const { parseErrorMessage } = require('../util/parser');
 
 const router = require('express').Router();
 
+router.get('/makes', async (req, res) => {
+    try {
+        const makes = await req.storage.getAllMakes();
+        res.status(200).json(makes);
+    } catch (error) {
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
-        
+
     } catch (error) {
-        
+
     }
 });
 

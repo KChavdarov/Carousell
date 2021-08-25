@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   API_URL: 'http://localhost:3000/api',
-  COOKIE_NAME: 'X-Authorization',
   PASSWORD_CHARACTERS: 3
 };
 
