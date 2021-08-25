@@ -10,7 +10,7 @@ form {
     max-width: 40rem;
     flex-basis: 100%;
     background-color: white;
-    padding: 1rem 3% 4rem 3%;
+    padding: 1rem 3%;
     box-shadow: 0px 1px 15px 0px #00000021;
     border-radius: 0.3rem;
 }
@@ -51,6 +51,32 @@ header.form-header {
     min-width: 12rem;
 }
 
+.form-group.checkbox-group {
+    margin: 0.5rem auto;
+    justify-content: space-evenly;
+}
+
+.form-group.checkbox-group:last-child {
+    margin-right: 36px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.checkbox-column {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 1rem
+}
+
+.mat-checkbox {
+    margin: 0.5rem;
+}
+
+
 .mat-icon {
     margin: auto 0.5rem;
 }
@@ -63,7 +89,13 @@ header.form-header {
     color: #3F51B5;
 }
 
-button[type="submit"] {
-    margin: 0.2rem auto;
-    display: block;
+.buttons {
+    padding-right: 36px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.mat-form-field.mat-form-field-invalid.ng-invalid .mat-icon {
+    color: #f44336;
 }

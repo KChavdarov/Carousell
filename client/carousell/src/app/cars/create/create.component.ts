@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { CarsService } from '../cars.service';
+import { locations } from 'src/app/shared/locations';
+import { colors } from 'src/app/shared/colors';
+
 
 @Component({
   selector: 'app-create',
@@ -13,6 +16,8 @@ export class CreateComponent implements OnInit {
   makes$!: Observable<string[]>;
   models$!: Observable<{ _id: string, bodyTypes: string[]; }[]>;
   bodyTypes$!: Observable<string[] | undefined>;
+  locations = locations;
+  colors = colors;
 
 
   @ViewChild('form') form!: NgForm;
@@ -36,9 +41,6 @@ export class CreateComponent implements OnInit {
     );
   }
 
-
-
-
   fileSelectHandler(event: any) {
     this.files = event.target.files;
   }
@@ -57,8 +59,8 @@ export class CreateComponent implements OnInit {
     }
 
     console.log(this.form.value);
-    this.carsService.createCar(formData).subscribe(res => console.log(res)
-    );
+
+    this.carsService.createCar(formData).subscribe(res => console.log(res));
 
   }
 }

@@ -1,49 +1,3 @@
-<!-- <form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
-
-    <label>Make<input type="text" name="make" #description="ngModel" ngModel></label>
-    <label>Model<input type="text" name="model" #description="ngModel" ngModel></label>
-    <label>Title<input type="text" name="title" #description="ngModel" ngModel></label>
-    <label>Description<textarea name="description" ngModel></textarea></label>
-    <label>Year<input type="number" name="year" #description="ngModel" ngModel></label>
-    <label>Engine<input type="text" name="engine" #description="ngModel" ngModel></label>
-    <label>Transmission<input type="text" name="transmission" #description="ngModel" ngModel></label>
-    <label>Power<input type="number" name="power" #description="ngModel" ngModel></label>
-    <label>Color<input type="text" name="color" #description="ngModel" ngModel></label>
-    <label>Mileage<input type="number" name="mileage" #description="ngModel" ngModel></label>
-    <label>Price<input type="number" name="price" #description="ngModel" ngModel></label>
-    <fieldset ngModelGroup="comfort">
-        <label>Air Conditioning<input type="checkbox" name="aircon" ngModel></label>
-        <label>Stereo<input type="checkbox" name="stereo" ngModel></label>
-    </fieldset>
-    <fieldset ngModelGroup="safety">
-        <label>ESP<input type="checkbox" name="esp" ngModel></label>
-        <label>ABS<input type="checkbox" name="abs" ngModel></label>
-    </fieldset>
-    <fieldset ngModelGroup="others">
-        <label>Insurance<input type="checkbox" name="insurance" ngModel></label>
-        <label>Registration<input type="checkbox" name="registration" ngModel></label>
-    </fieldset>
-
-    <input #images="ngModel" (change)="fileSelectHandler($event)" type="file" name="images" multiple required ngModel>
-
-    <button type="submit" [disabled]="form.invalid">Submit</button>
-</form> -->
-
-
-
-
-
-
-
-<!-- <mat-form-field class="form-field">
-        <mat-label>Select images</mat-label>
-        <ngx-mat-file-input placeholder="Basic Input" [multiple]="true"> </ngx-mat-file-input>
-        <mat-icon class="mat-primary" matPrefix>collections</mat-icon>
-        <mat-error></mat-error>
-    </mat-form-field> -->
-
-
-
 <div class="container">
     <div class="form-container">
         <form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
@@ -52,31 +6,273 @@
             </header>
             <mat-stepper #stepper orientation="vertical">
                 <mat-step>
-                    <ng-template matStepLabel>Step 1</ng-template>
+                    <ng-template matStepLabel>General Information</ng-template>
                     <div class="form-group">
-
                         <mat-form-field class="form-field">
-                            <mat-label>Make</mat-label>
-                            <mat-select name="make" #make="ngModel" matInput type="text" placeholder="Car brand" (selectionChange)="makeSelectionHandler(make.value)" ngModel>
+                            <mat-label>Brand</mat-label>
+                            <mat-select required name="make" #make="ngModel" matInput type="text" placeholder="Car brand" (selectionChange)="makeSelectionHandler(make.value)" ngModel>
                                 <mat-option *ngFor="let make of (makes$ | async)" [value]="make">{{make}}</mat-option>
                             </mat-select>
                             <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
-                            <mat-error></mat-error>
+                            <mat-error *ngIf="make.hasError('required')">Please select car brand</mat-error>
                         </mat-form-field>
 
                         <mat-form-field class="form-field">
                             <mat-label>Model</mat-label>
-                            <mat-select name="model" #model="ngModel" matInput type="text" placeholder="Car Model" (selectionChange)="modelSelectionHandler(model.value)" ngModel>
+                            <mat-select required name="model" #model="ngModel" matInput type="text" placeholder="Car model" (selectionChange)="modelSelectionHandler(model.value)" ngModel>
+                                <mat-option *ngIf="!(models$ | async)" disabled>Please select car brand first</mat-option>
                                 <mat-option *ngFor="let model of (models$ | async)" [value]="model._id">{{model._id}}</mat-option>
                             </mat-select>
                             <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
-                            <mat-error></mat-error>
+                            <mat-error *ngIf="model.hasError('required')">Please select brand and model</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="form-field">
+                            <mat-label>Title</mat-label>
+                            <input #title="ngModel" name="title" #make="ngModel" matInput type="text" placeholder="Catchy title" ngModel required>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="title.hasError('required')">Please add a title</mat-error>
                         </mat-form-field>
 
+                        <mat-form-field class="form-field">
+                            <mat-label>Price</mat-label>
+                            <input #price="ngModel" name="price" #make="ngModel" matInput type="number" placeholder="A fair price" ngModel required min="1">
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="price.hasError('required')">Please state a price</mat-error>
+                            <mat-error *ngIf="price.hasError('min')">Price must be positive</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="form-field">
+                            <mat-label>Description</mat-label>
+                            <textarea #description="ngModel" matInput name="description" #make="ngModel" matInput type="text" placeholder="Short and accurate description" ngModel required minlength="10"></textarea>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="description.hasError('required')">Please add a description</mat-error>
+                            <mat-error *ngIf="description.hasError('minlength')">Description too short</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="buttons">
+                        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
+                    </div>
+
+
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Additional Information</ng-template>
+                    <div class="form-group">
+                        <mat-form-field class="form-field">
+                            <mat-label>Color</mat-label>
+                            <mat-select #color="ngModel" name="color" #model="ngModel" matInput type="text" placeholder="Paint color" ngModel required>
+                                <mat-option *ngFor="let color of colors" [value]="color">{{color}}</mat-option>
+                            </mat-select>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="color.hasError('required')">Please pick a color</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Body type</mat-label>
+                            <mat-select #bodyType="ngModel" name="bodyType" #model="ngModel" matInput type="text" placeholder="Body type" ngModel required>
+                                <mat-option *ngFor="let bodyType of (bodyTypes$ | async)" [value]="bodyType">{{bodyType}}</mat-option>
+                            </mat-select>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="bodyType.hasError('required')">Please select body type</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="form-field">
+                            <mat-label>Year</mat-label>
+                            <input #year="ngModel" name="year" #make="ngModel" matInput type="number" placeholder="Production year" ngModel required min="1992" max="2021">
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="year.hasError('required')">Please state production year</mat-error>
+                            <mat-error *ngIf="year.hasError('min')">Year must be between 1992 and 2021</mat-error>
+                            <mat-error *ngIf="year.hasError('max')">Year must be between 1992 and 2021</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Location</mat-label>
+                            <mat-select name="location" #location="ngModel" matInput type="text" placeholder="Car location" ngModel required>
+                                <mat-option *ngFor="let location of locations" [value]="location">{{location}}</mat-option>
+                            </mat-select>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="location.hasError('required')">Please select a location</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="form-field">
+                            <mat-label>Select images</mat-label>
+                            <ngx-mat-file-input [required]="true" #images="ngModel" name="images" placeholder="Car photos" [multiple]="true" ngModel (change)="fileSelectHandler($event)"> </ngx-mat-file-input>
+                            <mat-icon class="mat-primary" matPrefix>collections</mat-icon>
+                            <mat-error *ngIf="images.hasError('required')">Please upload at least 1 image</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="buttons">
+                        <button mat-raised-button color="primary" type="button" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
+                    </div>
+
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Technical Information</ng-template>
+                    <div class="form-group">
+                        <mat-form-field class="form-field">
+                            <mat-label>Power</mat-label>
+                            <input #power="ngModel" name="power" #make="ngModel" matInput type="text" placeholder="Engine power" ngModel required min="1">
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="power.hasError('required')">Please state engine power in hp</mat-error>
+                            <mat-error *ngIf="power.hasError('min')">Power must be positive</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Engine</mat-label>
+                            <mat-select name="engine" #engine="ngModel" matInput type="text" placeholder="Engine type" ngModel required>
+                                <mat-option value="petrol">Petrol</mat-option>
+                                <mat-option value="diesel">Diesel</mat-option>
+                                <mat-option value="electric">Electric</mat-option>
+                            </mat-select>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="engine.hasError('required')">Please select engine type</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="form-field">
+                            <mat-label>Mileage</mat-label>
+                            <input name="mileage" #mileage="ngModel" matInput type="number" placeholder="Mileage" ngModel required min="0">
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="mileage.hasError('required')">Please state car mileage</mat-error>
+                            <mat-error *ngIf="mileage.hasError('min')">Mileage must be positive</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Transmission</mat-label>
+                            <mat-select name="transmission" #transmission="ngModel" matInput type="text" placeholder="Transmission type" ngModel required>
+                                <mat-option value="manual">Manual</mat-option>
+                                <mat-option value="automatic">Automatic</mat-option>
+                            </mat-select>
+                            <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
+                            <mat-error *ngIf="transmission.hasError('required')">Please select transmission type</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="buttons">
+                        <button mat-raised-button color="primary" type="button" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
                     </div>
                 </mat-step>
                 <mat-step>
-                    <ng-template matStepLabel>Step 2</ng-template>
+                    <ng-template matStepLabel>Safety</ng-template>
+                    <div #safety="ngModelGroup" ngModelGroup="safety">
+
+                        <div class="form-group checkbox-group">
+                            <div class="checkbox-container">
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="esp" color="primary" #esp="ngModel" [checked]="false">esp</mat-checkbox>
+                                    <mat-checkbox ngModel name="abs" color="primary" #abs="ngModel" [checked]="false">abs</mat-checkbox>
+                                </div>
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="airbags" color="primary" #airbags="ngModel" [checked]="false">airbags</mat-checkbox>
+                                    <mat-checkbox ngModel name="camera" color="primary" #camera="ngModel" [checked]="false">camera</mat-checkbox>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="parktronic" color="primary" #parktronic="ngModel" [checked]="false">parktronic</mat-checkbox>
+                                    <mat-checkbox ngModel name="distronic" color="primary" #distronic="ngModel" [checked]="false">distronic</mat-checkbox>
+                                </div>
+
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="isofix" color="primary" #isofix="ngModel" [checked]="false">isofix</mat-checkbox>
+                                    <mat-checkbox ngModel name="tpms" color="primary" #tpms="ngModel" [checked]="false">tpms</mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="buttons">
+                        <button mat-raised-button color="primary" type="button" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Comfort</ng-template>
+                    <div #safety="ngModelGroup" ngModelGroup="comfort">
+
+                        <div class="form-group checkbox-group">
+                            <div class="checkbox-container">
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="aircon" color="primary" #aircon="ngModel" [checked]="false">aircon</mat-checkbox>
+                                    <mat-checkbox ngModel name="sunroof" color="primary" #sunroof="ngModel" [checked]="false">sunroof</mat-checkbox>
+                                </div>
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="satnav" color="primary" #satnav="ngModel" [checked]="false">satnav</mat-checkbox>
+                                    <mat-checkbox ngModel name="xenon" color="primary" #xenon="ngModel" [checked]="false">xenon</mat-checkbox>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="stereo" color="primary" #stereo="ngModel" [checked]="false">stereo</mat-checkbox>
+                                    <mat-checkbox ngModel name="autopilot" color="primary" #autopilot="ngModel" [checked]="false">autopilot</mat-checkbox>
+                                </div>
+
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="bluetooth" color="primary" #bluetooth="ngModel" [checked]="false">bluetooth</mat-checkbox>
+                                    <mat-checkbox ngModel name="carplay" color="primary" #carplay="ngModel" [checked]="false">carplay</mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="buttons">
+                        <button mat-raised-button color="primary" type="button" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
+                    </div>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Others</ng-template>
+                    <div #safety="ngModelGroup" ngModelGroup="others">
+
+                        <div class="form-group checkbox-group">
+                            <div class="checkbox-container">
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="registration" color="primary" #registration="ngModel" [checked]="false">registration</mat-checkbox>
+                                    <mat-checkbox ngModel name="insurance" color="primary" #insurance="ngModel" [checked]="false">insurance</mat-checkbox>
+                                </div>
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="serviced" color="primary" #serviced="ngModel" [checked]="false">serviced</mat-checkbox>
+                                    <mat-checkbox ngModel name="armor" color="primary" #armor="ngModel" [checked]="false">armor</mat-checkbox>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="4x4" color="primary" #4x4="ngModel" [checked]="false">4x4</mat-checkbox>
+                                    <mat-checkbox ngModel name="cargo" color="primary" #cargo="ngModel" [checked]="false">cargo</mat-checkbox>
+                                </div>
+
+                                <div class="checkbox-column">
+                                    <mat-checkbox ngModel name="refrigerator" color="primary" #refrigerator="ngModel" [checked]="false">refrigerator</mat-checkbox>
+                                    <mat-checkbox ngModel name="learners" color="primary" #learners="ngModel" [checked]="false">learners</mat-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="buttons">
+                        <button mat-raised-button color="primary" type="button" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" type="submit">Submit</button>
+                    </div>
                 </mat-step>
             </mat-stepper>
         </form>
