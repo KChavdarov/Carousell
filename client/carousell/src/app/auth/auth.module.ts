@@ -9,7 +9,6 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from './+store/reducers';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './+store/effects';
 
@@ -31,7 +30,6 @@ import { AuthEffects } from './+store/effects';
   ],
   providers: [
     AuthService,
-    CookieService,
   ]
 })
 export class AuthModule {}

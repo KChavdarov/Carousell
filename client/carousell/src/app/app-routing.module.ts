@@ -20,7 +20,11 @@ const routes: Routes = [
   {
     path: 'cars',
     loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
-  }
+  },
+  // {
+  //   path: 'user',
+  //   loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+  // },
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules });

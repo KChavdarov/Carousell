@@ -10,4 +10,12 @@ export class CarsService {
   createCar(data: FormData) {
     return this.http.post<Car>('/api/cars/create', data);
   }
+
+  getMakes() {
+    return this.http.get<string[]>('/api/models/makes');
+  }
+
+  getModels(make: string) {
+    return this.http.get<{ _id: string, bodyTypes: string[]; }[]>('/api/models/' + make);
+  }
 }

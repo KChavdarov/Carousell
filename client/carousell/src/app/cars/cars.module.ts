@@ -4,6 +4,7 @@ import { CreateComponent } from './create/create.component';
 import { FormsModule } from '@angular/forms';
 import { CarsService } from './cars.service';
 import { CarsRoutingModule } from './cars-routing.module';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -14,10 +15,11 @@ import { CarsRoutingModule } from './cars-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    CarsRoutingModule
+    CarsRoutingModule,
+    MaterialModule,
   ],
   providers: [
-    CarsService
+    CarsService,
   ]
 })
 export class CarsModule {}
