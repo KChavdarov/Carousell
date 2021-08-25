@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { authError, authSuccess } from '../+store/actions';
@@ -16,6 +16,18 @@ export class RegisterComponent implements OnInit {
 
   get f() {
     return this.form.controls;
+  }
+
+  get passwords() {
+    return this.form.controls.passwords;
+  }
+
+  get password() {
+    return this.form.get('passwords.password');
+  }
+
+  get confirmPassword() {
+    return this.form.get('passwords.confirmPassword');
   }
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private store: Store<AuthState>) {}
@@ -37,19 +49,6 @@ export class RegisterComponent implements OnInit {
       })
     });
   }
-
-  get passwords() {
-    return this.form.controls.passwords;
-  }
-
-  get password() {
-    return this.form.get('passwords.password');
-  }
-
-  get confirmPassword() {
-    return this.form.get('passwords.confirmPassword');
-  }
-
 
   onPasswordInput(trigger?: AbstractControl | null) {
     if (trigger && trigger.value.length > 3) { trigger?.markAsTouched({ onlySelf: true }); }
@@ -86,7 +85,6 @@ export class RegisterComponent implements OnInit {
     if (filled && password?.value != confirmPassword?.value) {
       return { passwordMismatch: true };
     }
-
     return null;
   }
 
