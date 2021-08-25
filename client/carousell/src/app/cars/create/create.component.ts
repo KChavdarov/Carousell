@@ -10,7 +10,7 @@ import { colors } from 'src/app/shared/colors';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements OnInit {
   makes$!: Observable<string[]>;
