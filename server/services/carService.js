@@ -6,8 +6,8 @@ module.exports = {
 };
 
 async function searchCar(data) {
-    let { make, model, color, bodyStyle, price, year, location, power, engine, mileage, transmission, safety, comfort, others } = data;
-    const query = { price: { $gte: 0 } };
+    let { make, model, color, bodyStyle, price, year, location, power, engine, mileage, transmission, safety, comfort, others, perPage = 12, page = 1 } = data;
+    const query = { price: { $gte: 0 }, isDeleted: false };
     if (make) { query.make = make; };
     if (model) { query.model = model; };
     if (color) { query.color = color; };
@@ -23,9 +23,20 @@ async function searchCar(data) {
     Object.entries(others).filter(([k, v]) => v).forEach(([k, v]) => { query[`others.${k}`] = true; });
     Object.entries(price).filter(([k, v]) => v).forEach(([k, v]) => { if (k == 'min') { query.price.$gte = Number(v); } else if (k == 'max') { query.price.$lte = Number(v); } });
 
-    console.log(query);
-    const car = Car.find(query);
-    return car;
+    const cars = await Car.find(query)
+        .skip(Number(perPage) * (Number(page) - 1))
+        .limit(Number(perPage));
+
+    const count = await Car.countDocuments(query);
+
+    const result = {
+        page,
+        perPage,
+        count,
+        cars,
+    };
+
+    return result;
 }
 
 async function createCar(data) {

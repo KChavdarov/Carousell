@@ -56,8 +56,8 @@ router.post('/create', isAuth(), async (req, res) => {
 
 router.post('/search', async (req, res) => {
     try {
-        const cars = await req.storage.searchCar(req.body);
-        res.status(200).json(cars);
+        const result = await req.storage.searchCar(req.body);
+        res.status(200).json(result);
     } catch (error) {
         const errors = parseErrorMessage(error);
         res.status(400).json({ message: errors });
