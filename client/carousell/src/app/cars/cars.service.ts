@@ -21,6 +21,6 @@ export class CarsService {
   }
 
   searchCars(query: CarQuery) {
-    return this.http.post<Car[]>('/api/cars/search', query);
+    return this.http.post<{ page: number, perPage: number, count: number, cars: Car[]; }>('/api/cars/search', query);
   }
 }

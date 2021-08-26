@@ -3,8 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
-import { authError, authSuccess } from '../+store/actions';
-import { AuthState } from '../+store/reducers';
+import { authError, authSuccess } from '../../+store/actions';
+import { AuthState } from '../../+store/reducers';
 import { AuthService } from '../auth.service';
 
 @Component({

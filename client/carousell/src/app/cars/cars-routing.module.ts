@@ -1,4 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../shared/guards/auth.guard';
+import { ResultsAvailableGuard } from '../shared/guards/results-available.guard';
 import { CreateComponent } from './create/create.component';
 import { ResultsComponent } from './results/results.component';
 import { SearchComponent } from './search/search.component';
@@ -7,7 +9,8 @@ import { SearchComponent } from './search/search.component';
 const routes: Routes = [
     {
         path: 'create',
-        component: CreateComponent
+        component: CreateComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'search',
@@ -15,7 +18,8 @@ const routes: Routes = [
     },
     {
         path: 'results',
-        component: ResultsComponent
+        component: ResultsComponent,
+        canActivate: [ResultsAvailableGuard]
     },
 ];
 

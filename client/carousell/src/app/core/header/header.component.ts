@@ -3,12 +3,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { State, Store } from '@ngrx/store';
-import { AuthState } from 'src/app/auth/+store/reducers';
+import { AuthState } from 'src/app/+store/reducers';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/auth/login/login.component';
-import { selectUser } from 'src/app/auth/+store/selectors';
+import { selectUser } from 'src/app/+store/selectors';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { authLogoutError, authLogoutSuccess } from 'src/app/auth/+store/actions';
+import { authLogoutError, authLogoutSuccess } from 'src/app/+store/actions';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -25,7 +25,6 @@ export class HeaderComponent {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private state: State<AuthState>,
     private dialog: MatDialog,
     private store: Store<AuthState>,
     private authService: AuthService,

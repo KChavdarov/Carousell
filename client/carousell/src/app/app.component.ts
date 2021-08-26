@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { authError, authSuccess, authVerify } from './auth/+store/actions';
+import { authError, authSuccess, authVerify } from './+store/actions';
 import { AuthService } from './auth/auth.service';
 
 @Component({

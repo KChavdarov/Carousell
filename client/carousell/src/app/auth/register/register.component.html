@@ -2,8 +2,8 @@
     <div class="form-container">
         <form *ngIf="form" [formGroup]="form" (ngSubmit)="registerHandler()">
             <header class="form-header">
-                <a class="auth-button" routerLinkActive="active" routerLink="/login">Login</a>
-                <a class="auth-button" routerLinkActive="active" routerLink="/register">Register</a>
+                <a class="auth-button" routerLinkActive="active" routerLink="/user/login">Login</a>
+                <a class="auth-button" routerLinkActive="active" routerLink="/user/register">Register</a>
             </header>
             <div class="form-group">
                 <mat-form-field class="form-field">

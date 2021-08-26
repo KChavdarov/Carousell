@@ -11,6 +11,8 @@ import { StoreModule } from '@ngrx/store';
 import { ResultsComponent } from './results/results.component';
 import { CarsEffects } from './+store/effects';
 import { EffectsModule } from '@ngrx/effects';
+import { AuthGuard } from '../shared/guards/auth.guard';
+import { ResultsAvailableGuard } from '../shared/guards/results-available.guard';
 
 
 
@@ -30,6 +32,8 @@ import { EffectsModule } from '@ngrx/effects';
   ],
   providers: [
     CarsService,
+    AuthGuard,
+    ResultsAvailableGuard,
   ]
 })
 export class CarsModule {}

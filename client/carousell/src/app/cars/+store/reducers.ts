@@ -6,7 +6,7 @@ import { carsQueryClear, carsQueryUpdate, queryResultsSuccess } from './actions'
 
 export interface CarsState {
     readonly query: CarQuery | null;
-    readonly results: Car[] | null;
+    readonly results: { page: number, perPage: number, count: number, cars: Car[]; } | null;
 }
 
 const initialState: CarsState = {

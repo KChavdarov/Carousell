@@ -3,33 +3,31 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { StoreModule } from '@ngrx/store';
-import { authReducer } from './+store/reducers';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './+store/effects';
+import { ResultsAvailableGuard } from '../shared/guards/results-available.guard';
+import { AuthRoutingModule } from './auth-routing.module';
+import { GuestGuard } from '../shared/guards/guest.guard';
 
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    EffectsModule.forFeature([AuthEffects]),
-    StoreModule.forFeature('auth', authReducer),
+    AuthRoutingModule,
     MaterialModule,
     RouterModule,
   ],
   providers: [
     AuthService,
+    ResultsAvailableGuard,
+    GuestGuard,
   ]
 })
 export class AuthModule {}

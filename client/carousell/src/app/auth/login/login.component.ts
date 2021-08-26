@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { authError, authSuccess } from '../+store/actions';
-import { AuthState } from '../+store/reducers';
+import { authError, authSuccess } from '../../+store/actions';
+import { AuthState } from '../../+store/reducers';
 import { AuthService } from '../auth.service';
 
 @Component({

@@ -9,22 +9,22 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
   },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent,
+  // },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  // },
   {
     path: 'cars',
     loadChildren: () => import('./cars/cars.module').then(m => m.CarsModule),
   },
-  // {
-  //   path: 'user',
-  //   loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-  // },
+  {
+    path: 'user',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+  },
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules });
