@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Car } from '../shared/models/Car';
+import { CarQuery } from '../shared/models/CarQuery';
 
 @Injectable()
 export class CarsService {
@@ -19,7 +20,7 @@ export class CarsService {
     return this.http.get<{ _id: string, bodyStyles: string[]; }[]>('/api/models/' + make);
   }
 
-  searchCars(query: Car) {
+  searchCars(query: CarQuery) {
     return this.http.post<Car[]>('/api/cars/search', query);
   }
 }

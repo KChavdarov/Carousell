@@ -15,4 +15,5 @@ export interface CarQuery {
     safety?: {},
     others?: {},
     page?: number;
+    perPage?:number;
 }

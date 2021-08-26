@@ -7,7 +7,7 @@ import { locations } from 'src/app/shared/locations';
 import { colors } from 'src/app/shared/colors';
 import { bodyStyles } from 'src/app/shared/bodyStyles';
 import { Store } from '@ngrx/store';
-import { carsQueryInitiate } from '../+store/actions';
+import { carsQueryUpdate } from '../+store/actions';
 import { CarQuery } from 'src/app/shared/models/CarQuery';
 
 
@@ -48,7 +48,9 @@ export class SearchComponent implements OnInit {
   }
 
   submitHandler() {
-    this.store.dispatch(carsQueryInitiate(this.form.value));
-    this.carsService.searchCars(this.form.value).subscribe();
+    const data = Object.assign({}, this.form.value);
+    data.page = 1;
+    data.perPage = 25;
+    this.store.dispatch(carsQueryUpdate(data));
   }
 }
