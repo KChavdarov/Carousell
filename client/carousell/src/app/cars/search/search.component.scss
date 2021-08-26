@@ -95,11 +95,17 @@ header.form-header {
     color: #3F51B5;
 }
 
-.buttons {
-    padding-right: 36px;
+.form-divider.buttons {
+    margin-top: 1rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
+    padding: 0.5rem;
+}
+
+.buttons button {
+    margin: 0px 1rem;
+    min-width: 5rem;
 }
 
 .mat-form-field.mat-form-field-invalid.ng-invalid .mat-icon {

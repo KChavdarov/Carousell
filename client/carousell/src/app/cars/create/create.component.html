@@ -272,7 +272,7 @@
 
                     <div class="buttons">
                         <button mat-raised-button color="primary" type="button" matStepperPrevious>Back</button>
-                        <button disabled=[form.invalid] mat-raised-button color="primary" type="submit">Submit</button>
+                        <button [disabled]="form.invalid" mat-raised-button color="primary" type="submit">Submit</button>
                     </div>
                 </mat-step>
             </mat-stepper>

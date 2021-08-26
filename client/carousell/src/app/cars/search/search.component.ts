@@ -45,6 +45,6 @@ export class SearchComponent implements OnInit {
   }
 
   submitHandler() {
-
+    this.carsService.searchCars(this.form.value).subscribe()
   }
 }

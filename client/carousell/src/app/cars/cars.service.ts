@@ -18,4 +18,8 @@ export class CarsService {
   getModels(make: string) {
     return this.http.get<{ _id: string, bodyStyles: string[]; }[]>('/api/models/' + make);
   }
+
+  searchCars(query: Car) {
+    return this.http.post<Car[]>('/api/cars/search', query);
+  }
 }
