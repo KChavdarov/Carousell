@@ -7,6 +7,10 @@ export const authVerify = createAction(
     `${namespace} auth verify`
 );
 
+export const authGuest = createAction(
+    `${namespace} auth guest`
+);
+
 export const authSuccess = createAction(
     `${namespace} auth success`,
     props<User>()

@@ -51,7 +51,7 @@ router.get('/verify', async (req, res) => {
             const user = await req.auth.verifyUser(req.user._id);
             res.status(200).json(sanitizeUserData(user));
         } else {
-            res.status(404).end();
+            res.status(204).end();
         }
     } catch (error) {
         console.log(error);

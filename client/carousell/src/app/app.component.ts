@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { authError, authSuccess, authVerify } from './+store/actions';
+import { authError, authGuest, authSuccess, authVerify } from './+store/actions';
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -19,8 +19,12 @@ export class AppComponent implements OnInit {
 
     this.authService.verifyAuth().subscribe(
       user => {
+        if (user) {
+          this.store.dispatch(authSuccess(user));
+        } else {
+          this.store.dispatch(authGuest());
+        }
         this.isLoading = false;
-        this.store.dispatch(authSuccess(user));
       },
       error => {
         this.isLoading = false;
