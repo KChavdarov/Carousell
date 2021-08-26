@@ -6,6 +6,9 @@ import { CarsService } from '../cars.service';
 import { locations } from 'src/app/shared/locations';
 import { colors } from 'src/app/shared/colors';
 import { bodyStyles } from 'src/app/shared/bodyStyles';
+import { Store } from '@ngrx/store';
+import { carsQueryInitiate } from '../+store/actions';
+import { CarQuery } from 'src/app/shared/models/CarQuery';
 
 
 @Component({
@@ -26,7 +29,7 @@ export class SearchComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
   files: {} = {};
 
-  constructor(private carsService: CarsService) {}
+  constructor(private carsService: CarsService, private store: Store) {}
 
   ngOnInit(): void {
     this.makes$ = this.carsService.getMakes();
@@ -45,6 +48,7 @@ export class SearchComponent implements OnInit {
   }
 
   submitHandler() {
-    this.carsService.searchCars(this.form.value).subscribe()
+    this.store.dispatch(carsQueryInitiate(this.form.value));
+    this.carsService.searchCars(this.form.value).subscribe();
   }
 }
