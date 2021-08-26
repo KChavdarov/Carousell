@@ -16,6 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const components = [
   LayoutModule,
@@ -40,6 +42,8 @@ const components = [
   MatStepperModule,
   MatSelectModule,
   MaterialFileInputModule,
+  MatTabsModule,
+  MatExpansionModule,
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@
                 <a mat-list-item [routerLink]="['/login']">Login</a>
             </mat-nav-list>
             <mat-nav-list *ngIf="user$ | async">
-                <a mat-list-item [routerLink]="['/register']">Browse cars</a>
+                <a mat-list-item [routerLink]="['/cars/search']">Browse cars</a>
                 <a mat-list-item [routerLink]="['/cars/create']">Add listing</a>
             </mat-nav-list>
         </ng-container>

@@ -8,8 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/auth/login/login.component';
 import { selectUser } from 'src/app/auth/+store/selectors';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { authLogout, authLogoutError, authLogoutSuccess } from 'src/app/auth/+store/actions';
+import { authLogoutError, authLogoutSuccess } from 'src/app/auth/+store/actions';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -28,6 +29,7 @@ export class HeaderComponent {
     private dialog: MatDialog,
     private store: Store<AuthState>,
     private authService: AuthService,
+    private router: Router,
   ) {}
 
 
@@ -49,8 +51,10 @@ export class HeaderComponent {
       filter(result => result == data.confirm),
       switchMap(() => this.authService.logout()),
     ).subscribe(
-      response => this.store.dispatch(authLogoutSuccess())
-      ,
+      response => {
+        this.store.dispatch(authLogoutSuccess());
+        this.router.navigate(['/']);
+      },
       error => this.store.dispatch(authLogoutError({ error }))
     );
   }

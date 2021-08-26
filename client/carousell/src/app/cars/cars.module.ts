@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { CarsService } from './cars.service';
 import { CarsRoutingModule } from './cars-routing.module';
 import { MaterialModule } from '../material/material.module';
+import { SearchComponent } from './search/search.component';
 
 
 
 @NgModule({
   declarations: [
-    CreateComponent
+    CreateComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,

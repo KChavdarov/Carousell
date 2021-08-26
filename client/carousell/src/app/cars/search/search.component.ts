@@ -5,19 +5,22 @@ import { map } from 'rxjs/operators';
 import { CarsService } from '../cars.service';
 import { locations } from 'src/app/shared/locations';
 import { colors } from 'src/app/shared/colors';
+import { bodyStyles } from 'src/app/shared/bodyStyles';
 
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class SearchComponent implements OnInit {
+  panelOpenState = false;
   makes$!: Observable<string[]>;
   models$!: Observable<{ _id: string, bodyStyles: string[]; }[]>;
   bodyStyles$!: Observable<string[] | undefined>;
   locations = locations;
   colors = colors;
+  bodyStyles = bodyStyles;
 
 
   @ViewChild('form') form!: NgForm;
@@ -41,26 +44,7 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  fileSelectHandler(event: any) {
-    this.files = event.target.files;
-  }
-
   submitHandler() {
-    const formData = new FormData();
-
-    for (let [k, v] of Object.entries(this.form.value)) {
-      if (k != 'images') {
-        formData.append(k, JSON.stringify(v));
-      }
-    }
-
-    for (let [k, v] of Object.entries(this.files)) {
-      formData.append(k, v as string);
-    }
-
-    console.log(this.form.value);
-
-    this.carsService.createCar(formData).subscribe(res => console.log(res));
 
   }
 }

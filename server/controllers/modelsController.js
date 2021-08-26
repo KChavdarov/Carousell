@@ -11,6 +11,16 @@ router.get('/makes', async (req, res) => {
     }
 });
 
+router.get('/bodystyles', async (req, res) => {
+    try {
+        const bodyStyles = await req.storage.getAllBodyStyles();
+        res.status(200).json(bodyStyles.sort((a, b) => (a + '').localeCompare(b + '')));
+    } catch (error) {
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 router.get('/:make', async (req, res) => {
     try {
         const make = req.params.make;

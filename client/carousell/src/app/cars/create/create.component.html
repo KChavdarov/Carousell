@@ -31,14 +31,14 @@
                     <div class="form-group">
                         <mat-form-field class="form-field">
                             <mat-label>Title</mat-label>
-                            <input #title="ngModel" name="title" #make="ngModel" matInput type="text" placeholder="Catchy title" ngModel required>
+                            <input #title="ngModel" name="title" matInput type="text" placeholder="Catchy title" ngModel required>
                             <mat-icon class="mat-primary" matPrefix>feed</mat-icon>
                             <mat-error *ngIf="title.hasError('required')">Please add a title</mat-error>
                         </mat-form-field>
 
                         <mat-form-field class="form-field">
                             <mat-label>Price</mat-label>
-                            <input #price="ngModel" name="price" #make="ngModel" matInput type="number" placeholder="A fair price" ngModel required min="1">
+                            <input #price="ngModel" name="price" matInput type="number" placeholder="A fair price" ngModel required min="1">
                             <mat-icon class="mat-primary" matPrefix>euro</mat-icon>
                             <mat-error *ngIf="price.hasError('required')">Please state a price</mat-error>
                             <mat-error *ngIf="price.hasError('min')">Price must be positive</mat-error>
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <mat-form-field class="form-field">
                             <mat-label>Description</mat-label>
-                            <textarea #description="ngModel" matInput name="description" #make="ngModel" matInput type="text" placeholder="Short and accurate description" ngModel required minlength="10"></textarea>
+                            <textarea #description="ngModel" matInput name="description" matInput type="text" placeholder="Short and accurate description" ngModel required minlength="10"></textarea>
                             <mat-icon class="mat-primary" matPrefix>border_color</mat-icon>
                             <mat-error *ngIf="description.hasError('required')">Please add a description</mat-error>
                             <mat-error *ngIf="description.hasError('minlength')">Description too short</mat-error>
@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <mat-form-field class="form-field">
                             <mat-label>Color</mat-label>
-                            <mat-select #color="ngModel" name="color" #model="ngModel" matInput type="text" placeholder="Paint color" ngModel required>
+                            <mat-select #color="ngModel" name="color" matInput type="text" placeholder="Paint color" ngModel required>
                                 <mat-option *ngFor="let color of colors" [value]="color">{{color}}</mat-option>
                             </mat-select>
                             <mat-icon class="mat-primary" matPrefix>palette</mat-icon>
@@ -74,19 +74,20 @@
                         </mat-form-field>
 
                         <mat-form-field class="form-field">
-                            <mat-label>Body type</mat-label>
-                            <mat-select #bodyType="ngModel" name="bodyType" #model="ngModel" matInput type="text" placeholder="Body type" ngModel required>
-                                <mat-option *ngFor="let bodyType of (bodyTypes$ | async)" [value]="bodyType">{{bodyType}}</mat-option>
+                            <mat-label>Body style</mat-label>
+                            <mat-select #bodyStyle="ngModel" name="bodyStyle" matInput type="text" placeholder="Body style" ngModel required>
+                                <mat-option *ngIf="!(bodyStyles$ | async)" disabled>Please select brand and model first</mat-option>
+                                <mat-option *ngFor="let bodyStyle of (bodyStyles$ | async)" [value]="bodyStyle">{{bodyStyle}}</mat-option>
                             </mat-select>
                             <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
-                            <mat-error *ngIf="bodyType.hasError('required')">Please select body type</mat-error>
+                            <mat-error *ngIf="bodyStyle.hasError('required')">Please select body type</mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="form-group">
                         <mat-form-field class="form-field">
                             <mat-label>Year</mat-label>
-                            <input #year="ngModel" name="year" #make="ngModel" matInput type="number" placeholder="Production year" ngModel required min="1992" max="2021">
+                            <input #year="ngModel" name="year" matInput type="number" placeholder="Production year" ngModel required min="1992" max="2021">
                             <mat-icon class="mat-primary" matPrefix>today</mat-icon>
                             <mat-error *ngIf="year.hasError('required')">Please state production year</mat-error>
                             <mat-error *ngIf="year.hasError('min')">Year must be between 1992 and 2021</mat-error>
@@ -123,7 +124,7 @@
                     <div class="form-group">
                         <mat-form-field class="form-field">
                             <mat-label>Power</mat-label>
-                            <input #power="ngModel" name="power" #make="ngModel" matInput type="text" placeholder="Engine power" ngModel required min="1">
+                            <input #power="ngModel" name="power" matInput type="text" placeholder="Engine power" ngModel required min="1">
                             <mat-icon class="mat-primary" matPrefix>speed</mat-icon>
                             <mat-error *ngIf="power.hasError('required')">Please state engine power in hp</mat-error>
                             <mat-error *ngIf="power.hasError('min')">Power must be positive</mat-error>
@@ -271,7 +272,7 @@
 
                     <div class="buttons">
                         <button mat-raised-button color="primary" type="button" matStepperPrevious>Back</button>
-                        <button mat-raised-button color="primary" type="submit">Submit</button>
+                        <button disabled=[form.invalid] mat-raised-button color="primary" type="submit">Submit</button>
                     </div>
                 </mat-step>
             </mat-stepper>

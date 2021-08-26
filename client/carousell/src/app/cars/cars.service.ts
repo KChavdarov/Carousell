@@ -16,6 +16,6 @@ export class CarsService {
   }
 
   getModels(make: string) {
-    return this.http.get<{ _id: string, bodyTypes: string[]; }[]>('/api/models/' + make);
+    return this.http.get<{ _id: string, bodyStyles: string[]; }[]>('/api/models/' + make);
   }
 }

@@ -4,7 +4,7 @@ export interface Car {
     make: string,
     model: string,
     year: number,
-    bodyType: string,
+    bodyStyle: string,
     description: string,
     engine: string,
     transmission: string,
