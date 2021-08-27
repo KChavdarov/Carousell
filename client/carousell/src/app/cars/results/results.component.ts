@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
-import { throwError } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { Car } from 'src/app/shared/models/Car';
 import { CarQuery } from 'src/app/shared/models/CarQuery';
 import { carsQueryUpdate } from '../+store/actions';
@@ -14,9 +13,12 @@ import { selectQuery, selectResults } from '../+store/selectors';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
+
   results$ = this.store.select(selectResults);
   query$ = this.store.select(selectQuery);
+  resultsSubscription!: Subscription;
+  querySubscription!: Subscription;
 
   count!: number;
   page!: number;
@@ -45,11 +47,20 @@ export class ResultsComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.querySubscription?.unsubscribe();
+    this.resultsSubscription?.unsubscribe();
+  }
+
   onPageChange(event: any) {
     this.query.page = event.pageIndex + 1;
     this.query.perPage = event.pageSize;
 
     this.store.dispatch(carsQueryUpdate(this.query));
+  }
+
+  addToFavorites(carId: string = '') {
+    console.log(carId);
   }
 
 }

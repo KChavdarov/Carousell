@@ -13,6 +13,8 @@ import { CarsEffects } from './+store/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { ResultsAvailableGuard } from '../shared/guards/results-available.guard';
+import { SharedModule } from '../shared/shared.module';
+import { ListingCardComponent } from '../shared/listing-card/listing-card.component';
 
 
 
@@ -20,10 +22,11 @@ import { ResultsAvailableGuard } from '../shared/guards/results-available.guard'
   declarations: [
     CreateComponent,
     SearchComponent,
-    ResultsComponent
+    ResultsComponent,
   ],
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule,
     CarsRoutingModule,
     EffectsModule.forFeature([CarsEffects]),

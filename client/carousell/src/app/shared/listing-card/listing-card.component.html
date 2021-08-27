@@ -1,0 +1,45 @@
+<div class="card">
+    <header class="card-header">
+        <h3 [routerLink]="['/cars',car._id]" class="card-title">{{car.make}} {{car.model}} {{car.title}}</h3>
+        <button mat-icon-button color="warn" class="favorites" (click)="addToFavorites(car._id)">
+            <mat-icon>favorite</mat-icon>
+        </button>
+    </header>
+    <div class="card-body" [routerLink]="['/cars',car._id]">
+        <div class="image-container">
+            <img [src]="car.images[0]">
+            <div class="price">&euro; {{car.price | number:'2.0-0'}}</div>
+        </div>
+        <section class="card-content">
+            <div class="card-description">{{car.description | shorten}}</div>
+            <div class="specs">
+                <ul>
+                    <li>
+                        <mat-icon>build</mat-icon> <span class="detail">{{car.engine | titlecase}}</span>
+                    </li>
+                    <li>
+                        <mat-icon>miscellaneous_services</mat-icon> <span class="detail">{{car.transmission | titlecase}}</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <mat-icon>today</mat-icon> <span class="detail">{{car.year}}</span>
+                    </li>
+                    <li>
+                        <mat-icon>add_road</mat-icon> <span class="detail">{{car.mileage}} km</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <mat-icon>directions_car</mat-icon> <span class="detail">{{car.bodyStyle}}</span>
+                    </li>
+                    <li>
+                        <mat-icon>palette</mat-icon> <span class="detail">{{car.color}}</span>
+                    </li>
+                </ul>
+
+            </div>
+        </section>
+    </div>
+    <footer class="card-footer">{{car.createdAt | date:'medium'}}, {{car.location}}</footer>
+</div>

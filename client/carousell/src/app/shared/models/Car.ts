@@ -16,7 +16,7 @@ export interface Car {
     comfort: {},
     safety: {},
     others: {},
-    images?: [],
+    images: string[],
     views?: [],
     subscribers?: [],
     comments?: [],

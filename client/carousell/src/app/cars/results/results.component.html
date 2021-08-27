@@ -1,6 +1,160 @@
-<div class="container">
+<div class="page-content">
 
-    <mat-paginator [length]="count" [pageSize]="perPage" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)" aria-label="Select page">
+    <div class="query-summary generic">
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+        <p>Placeholder</p>
+    </div>
+
+    <mat-paginator class="generic" [length]="count" [pageSize]="perPage" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)" aria-label="Select page">
     </mat-paginator>
+
+    <div class="grid-container">
+
+        <ng-container *ngFor="let car of cars">
+            <app-listing-card [car]="car"></app-listing-card>
+        </ng-container>
+
+        <!-- <div class="card" *ngFor="let car of cars">
+            <header class="card-header">
+                <h3 [routerLink]="['/']" class="card-title">{{car.make}} {{car.model}} {{car.title}}</h3>
+                <button mat-icon-button color="warn" class="favorites" (click)="addToFavorites(car._id)">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+            </header>
+            <div class="card-body" [routerLink]="['/']">
+                <div class="image-container">
+                    <img [src]="car.images[0]">
+                    <div class="price">&euro; {{car.price | number:'2.0-0'}}</div>
+                </div>
+                <section class="card-content">
+                    <div class="card-description">{{car.description | shorten}}</div>
+                    <div class="specs">
+                        <ul>
+                            <li>
+                                <mat-icon>build</mat-icon> <span class="detail">{{car.engine | titlecase}}</span>
+                            </li>
+                            <li>
+                                <mat-icon>miscellaneous_services</mat-icon> <span class="detail">{{car.transmission | titlecase}}</span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <mat-icon>today</mat-icon> <span class="detail">{{car.year}}</span>
+                            </li>
+                            <li>
+                                <mat-icon>add_road</mat-icon> <span class="detail">{{car.mileage}} km</span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <mat-icon>directions_car</mat-icon> <span class="detail">{{car.bodyStyle}}</span>
+                            </li>
+                            <li>
+                                <mat-icon>palette</mat-icon> <span class="detail">{{car.color}}</span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </section>
+            </div>
+            <footer class="card-footer">{{car.createdAt | date:'medium'}}, {{car.location}}</footer>
+        </div>
+
+
+        <div class="card">
+            <header class="card-header">
+                <h3 class="card-title">BMW 330xi tuning</h3>
+                <button mat-icon-button color="warn" class="favorites">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+            </header>
+            <div class="image-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShHlTf7w5HcPmkm9Ei_-mkxE0lqQ_4zokZWg&usqp=CAU">
+                <div class="price">56441</div>
+            </div>
+            <section class="card-content">
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
+                <div class="specs">
+                    <ul>
+                        <li> asd </li>
+                        <li> asd </li>
+                        <li> asd </li>
+                    </ul>
+                </div>
+            </section>
+            <footer class="card-footer">Today Vratsa</footer>
+        </div>
+        <div class="card">
+            <header class="card-header">
+                <h3 class="card-title">BMW 330xi tuning</h3>
+                <button mat-icon-button color="warn" class="favorites">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+            </header>
+            <div class="image-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9P6P7uJe2o8i2QRfsdu6y-H6IPHekWcXtnA&usqp=CAU">
+                <div class="price"></div>
+            </div>
+            <section class="card-content">
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
+                <div class="specs">
+                    <ul>
+                        <li> asd </li>
+                        <li> asd </li>
+                        <li> asd </li>
+                    </ul>
+                </div>
+            </section>
+            <footer class="card-footer">Today Vratsa</footer>
+        </div>
+        <div class="card">
+            <header class="card-header">
+                <h3 class="card-title">BMW 330xi tuning</h3>
+                <button mat-icon-button color="warn" class="favorites">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+            </header>
+            <div class="image-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVVYXFipTj1QaNgnrFs3xeLHuW649BD83Plw&usqp=CAU">
+                <div class="price"></div>
+            </div>
+            <section class="card-content">
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
+                <div class="specs">
+                    <ul>
+                        <li> asd </li>
+                        <li> asd </li>
+                        <li> asd </li>
+                    </ul>
+                </div>
+            </section>
+            <footer class="card-footer">Today Vratsa</footer>
+        </div>
+        <div class="card">
+            <header class="card-header">
+                <h3 class="card-title">BMW 330xi tuning</h3>
+                <button mat-icon-button color="warn" class="favorites">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+            </header>
+            <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1549288830-f4746d294441?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fGNhcnN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80">
+                <div class="price"></div>
+            </div>
+            <section class="card-content">
+                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
+                <div class="specs">
+                    <ul>
+                        <li> asd </li>
+                        <li> asd </li>
+                        <li> asd </li>
+                    </ul>
+                </div>
+            </section>
+            <footer class="card-footer">Today Vratsa</footer>
+        </div> -->
+
+    </div>
 
 </div>

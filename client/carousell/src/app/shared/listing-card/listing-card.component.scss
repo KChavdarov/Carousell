@@ -1,0 +1,81 @@
+.card {
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.card:hover {
+    box-shadow: 1px 3px 8px 4px rgb(0 0 0 / 25%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    transition: box-shadow 200ms
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 0.5rem;
+}
+
+.card-title {
+    flex-grow: 1;
+    margin: 0;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+
+.image-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.image-container::before {
+    display: block;
+    content: '';
+    padding-top: 50%;
+}
+
+.image-container img {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.price {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 1.2rem;
+    background: white;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    box-shadow: 0 0 5px 5px white;
+    padding: 0.1rem;
+}
+
+.card-content {
+    padding: 0.5rem;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    grid-gap: 0.2rem;
+    justify-items: center;
+}
+
+.specs .mat-icon {
+    font-size: 1rem;
+}
+
+.card-footer {
+    font-size: 0.7rem;
+    font-weight: 100;
+    color: #757575;
+    padding: 0.2rem 1rem;
+    text-align: end;
+}
