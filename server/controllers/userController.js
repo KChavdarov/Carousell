@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 const { COOKIE_NAME } = require('../config');
-const { isGuest } = require('../middleware/guards');
+const { isGuest, isAuth } = require('../middleware/guards');
 const { parseErrorMessage } = require('../util/parser.js');
 const { createToken } = require('../util/jwt.js');
 
@@ -65,10 +65,44 @@ router.get('/logout', (req, res) => {
     res.status(204).send({ message: 'Logged out' });
 });
 
+router.get('/bookmark/:id', isAuth(), async (req, res) => {
+    let userId = req.user._id;
+    let carId = req.params.id;
+    try {
+        const [user, car] = await Promise.all([
+            req.auth.likeCar(userId, carId),
+            req.storage.addSubscriber(userId, carId)
+        ]);
+        res.status(201).json(sanitizeUserData(user));
+
+    } catch (error) {
+        console.log(error);
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.delete('/bookmark/:id', isAuth(), async (req, res) => {
+    let userId = req.user._id;
+    let carId = req.params.id;
+    try {
+        const [user, car] = await Promise.all([
+            req.auth.unlikeCar(userId, carId),
+            req.storage.removeSubscriber(userId, carId)
+        ]);
+        res.status(201).json(sanitizeUserData(user));
+
+    } catch (error) {
+        console.log(error);
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 
 function sanitizeUserData(user) {
-    const { _id, firstName, lastName, email, phone, createdAt, updatedAt } = user;
-    return { _id, firstName, lastName, email, phone, createdAt, updatedAt };
+    const { _id, firstName, lastName, email, phone, createdAt, updatedAt, cars, favorites } = user;
+    return { _id, firstName, lastName, email, phone, createdAt, updatedAt, cars, favorites };
 }
 
 module.exports = router;

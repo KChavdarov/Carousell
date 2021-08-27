@@ -1,16 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
-import { State, Store } from '@ngrx/store';
+import { map, shareReplay, } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 import { AuthState } from 'src/app/+store/reducers';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from 'src/app/auth/login/login.component';
 import { selectUser } from 'src/app/+store/selectors';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { authLogoutError, authLogoutSuccess } from 'src/app/+store/actions';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Router } from '@angular/router';
+import { authLogout } from 'src/app/+store/actions';
 
 @Component({
   selector: 'app-header',
@@ -27,8 +24,6 @@ export class HeaderComponent {
     private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
     private store: Store<AuthState>,
-    private authService: AuthService,
-    private router: Router,
   ) {}
 
 
@@ -38,23 +33,16 @@ export class HeaderComponent {
       shareReplay()
     );
 
-  openAuthDialog() {
-    this.dialog.open(LoginComponent,);
-  };
-
   logout() {
     const data = { message: 'Are you sure you want to log out?', confirm: 'Logout', reject: 'Cancel' };
     const dialog = this.dialog.open(ConfirmationDialogComponent, { data });
 
-    dialog.afterClosed().pipe(
-      filter(result => result == data.confirm),
-      switchMap(() => this.authService.logout()),
-    ).subscribe(
-      response => {
-        this.store.dispatch(authLogoutSuccess());
-        this.router.navigate(['/']);
+    dialog.afterClosed().subscribe(
+      result => {
+        if (result == data.confirm) {
+          this.store.dispatch(authLogout());
+        }
       },
-      error => this.store.dispatch(authLogoutError({ error }))
     );
   }
 }

@@ -3,7 +3,35 @@ const Car = require('../models/Car');
 module.exports = {
     createCar,
     searchCar,
+    getCarById,
+    addSubscriber,
+    removeSubscriber,
 };
+
+async function getCarById(id) {
+    return Car.findById(id);
+}
+
+async function addSubscriber(userId, carId) {
+    const car = await getCarById(carId);
+    if (car) {
+        car.subscribers.push(userId);
+        return car.save();
+    } else {
+        return car;
+    }
+}
+
+async function removeSubscriber(userId, carId) {
+    const car = await getCarById(carId);
+    if (car) {
+        let subscribers = car.subscribers.filter(subId => subId != userId);
+        Object.assign(car, { subscribers });
+        return car.save();
+    } else {
+        return car;
+    }
+}
 
 async function searchCar(data) {
     let { make, model, color, bodyStyle, price, year, location, power, engine, mileage, transmission, safety, comfort, others, perPage = 12, page = 1 } = data;

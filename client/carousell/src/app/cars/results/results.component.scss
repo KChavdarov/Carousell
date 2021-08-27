@@ -11,6 +11,14 @@ mat-paginator {
     margin-bottom: 1rem;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+
 .query-summary {
     margin: 2rem auto;
     flex-grow: 1;
@@ -27,9 +35,32 @@ mat-paginator {
     padding: 1rem 1.5rem;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    grid-gap: 1rem;
-    margin-bottom: 2rem;
+.query-summary .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    justify-items: center;
+    margin-bottom: auto;
+    font-size: 0.7rem;
+    font-weight: 100;
+}
+
+span.selection {
+    color: #3F51B5;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+header.results-header{
+    display: flex;
+    margin: 2rem 2% 3rem 2%;
+}
+
+h2.title{
+    text-align: center;
+    text-decoration: none;
+    color: #3F51B5;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex: 1 1 auto;
+    border-bottom: 1.8px solid #3F51B5;
 }

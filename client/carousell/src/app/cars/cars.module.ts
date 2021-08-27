@@ -14,7 +14,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { ResultsAvailableGuard } from '../shared/guards/results-available.guard';
 import { SharedModule } from '../shared/shared.module';
-import { ListingCardComponent } from '../shared/listing-card/listing-card.component';
 
 
 

@@ -1,9 +1,58 @@
 <div class="page-content">
-
-    <div class="query-summary generic">
-        <p>Placeholder</p>
-        <p>Placeholder</p>
-        <p>Placeholder</p>
+    <div class="query-summary">
+        <header class="results-header">
+            <h2 class="title">Search results</h2>
+        </header>
+        <div class=" grid-container">
+            <ul>
+                <li>Brand: <span class="selection">{{summary.make}}</span></li>
+                <li>Model: <span class="selection">{{summary.model}}</span></li>
+                <li>Color: <span class="selection">{{summary.color}}</span></li>
+                <li>Body type: <span class="selection">{{summary.bodyStyle}}</span></li>
+                <li>Minimum Price: <span class="selection">{{summary.min? '&euro;': ''}}{{summary.min | number:'2.0-0'}}</span></li>
+                <li>Maximum Price: <span class="selection">{{summary.min? '&euro;': ''}}{{summary.max | number:'2.0-0'}}</span></li>
+            </ul>
+            <ul>
+                <li>Minimum Year: <span class="selection">{{summary.year}}</span></li>
+                <li>Location: <span class="selection">{{summary.location}}</span></li>
+                <li>Minimum power: <span class="selection">{{summary.power}}</span></li>
+                <li>Engine: <span class="selection">{{summary.engine}}</span></li>
+                <li>Transmission: <span class="selection">{{summary.transmission}}</span></li>
+                <li>Mileage: <span class="selection">{{summary.mileage | number:'2.0-0'}}</span></li>
+            </ul>
+            <ul>
+                <li>ESP: <span class="selection">{{summary.esp ? 'yes': ''}}</span></li>
+                <li>ABS: <span class="selection">{{summary.abs ? 'yes': ''}}</span></li>
+                <li>Airbags: <span class="selection">{{summary.airbags ? 'yes': ''}}</span></li>
+                <li>Camera: <span class="selection">{{summary.camera ? 'yes': ''}}</span></li>
+                <li>Parktronic: <span class="selection">{{summary.parktronic ? 'yes': ''}}</span></li>
+                <li>Distronic: <span class="selection">{{summary.distronic ? 'yes': ''}}</span></li>
+                <li>Isofix: <span class="selection">{{summary.isofix ? 'yes': ''}}</span></li>
+            </ul>
+            <ul>
+                <li>TPMS: <span class="selection">{{summary.tpms ? 'yes': ''}}</span></li>
+                <li>Aircon: <span class="selection">{{summary.aircon ? 'yes': ''}}</span></li>
+                <li>Sunroof: <span class="selection">{{summary.sunroof ? 'yes': ''}}</span></li>
+                <li>Satnav: <span class="selection">{{summary.satnav ? 'yes': ''}}</span></li>
+                <li>Xenon: <span class="selection">{{summary.xenon ? 'yes': ''}}</span></li>
+                <li>Stereo: <span class="selection">{{summary.stereo ? 'yes': ''}}</span></li>
+            </ul>
+            <ul>
+                <li>Autopilot: <span class="selection">{{summary.autopilot ? 'yes': ''}}</span></li>
+                <li>Bluetooth: <span class="selection">{{summary.bluetooth ? 'yes': ''}}</span></li>
+                <li>Carplay: <span class="selection">{{summary.carplay ? 'yes': ''}}</span></li>
+                <li>Registration: <span class="selection">{{summary.registration ? 'yes': ''}}</span></li>
+                <li>Insurance: <span class="selection">{{summary.insurance ? 'yes': ''}}</span></li>
+                <li>Serviced: <span class="selection">{{summary.serviced ? 'yes': ''}}</span></li>
+            </ul>
+            <ul>
+                <li>Armor: <span class="selection">{{summary.armor ? 'yes': ''}}</span></li>
+                <li>4x4: <span class="selection">{{summary['4x4'] ? 'yes': ''}}</span></li>
+                <li>Cargo: <span class="selection">{{summary.cargo ? 'yes': ''}}</span></li>
+                <li>Refrigerator: <span class="selection">{{summary.refrigerator ? 'yes': ''}}</span></li>
+                <li>Learners: <span class="selection">{{summary.learners ? 'yes': ''}}</span></li>
+            </ul>
+        </div>
     </div>
 
     <mat-paginator class="generic" [length]="count" [pageSize]="perPage" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)" aria-label="Select page">
@@ -14,146 +63,6 @@
         <ng-container *ngFor="let car of cars">
             <app-listing-card [car]="car"></app-listing-card>
         </ng-container>
-
-        <!-- <div class="card" *ngFor="let car of cars">
-            <header class="card-header">
-                <h3 [routerLink]="['/']" class="card-title">{{car.make}} {{car.model}} {{car.title}}</h3>
-                <button mat-icon-button color="warn" class="favorites" (click)="addToFavorites(car._id)">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-            </header>
-            <div class="card-body" [routerLink]="['/']">
-                <div class="image-container">
-                    <img [src]="car.images[0]">
-                    <div class="price">&euro; {{car.price | number:'2.0-0'}}</div>
-                </div>
-                <section class="card-content">
-                    <div class="card-description">{{car.description | shorten}}</div>
-                    <div class="specs">
-                        <ul>
-                            <li>
-                                <mat-icon>build</mat-icon> <span class="detail">{{car.engine | titlecase}}</span>
-                            </li>
-                            <li>
-                                <mat-icon>miscellaneous_services</mat-icon> <span class="detail">{{car.transmission | titlecase}}</span>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <mat-icon>today</mat-icon> <span class="detail">{{car.year}}</span>
-                            </li>
-                            <li>
-                                <mat-icon>add_road</mat-icon> <span class="detail">{{car.mileage}} km</span>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <mat-icon>directions_car</mat-icon> <span class="detail">{{car.bodyStyle}}</span>
-                            </li>
-                            <li>
-                                <mat-icon>palette</mat-icon> <span class="detail">{{car.color}}</span>
-                            </li>
-                        </ul>
-
-                    </div>
-                </section>
-            </div>
-            <footer class="card-footer">{{car.createdAt | date:'medium'}}, {{car.location}}</footer>
-        </div>
-
-
-        <div class="card">
-            <header class="card-header">
-                <h3 class="card-title">BMW 330xi tuning</h3>
-                <button mat-icon-button color="warn" class="favorites">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-            </header>
-            <div class="image-container">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShHlTf7w5HcPmkm9Ei_-mkxE0lqQ_4zokZWg&usqp=CAU">
-                <div class="price">56441</div>
-            </div>
-            <section class="card-content">
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
-                <div class="specs">
-                    <ul>
-                        <li> asd </li>
-                        <li> asd </li>
-                        <li> asd </li>
-                    </ul>
-                </div>
-            </section>
-            <footer class="card-footer">Today Vratsa</footer>
-        </div>
-        <div class="card">
-            <header class="card-header">
-                <h3 class="card-title">BMW 330xi tuning</h3>
-                <button mat-icon-button color="warn" class="favorites">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-            </header>
-            <div class="image-container">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9P6P7uJe2o8i2QRfsdu6y-H6IPHekWcXtnA&usqp=CAU">
-                <div class="price"></div>
-            </div>
-            <section class="card-content">
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
-                <div class="specs">
-                    <ul>
-                        <li> asd </li>
-                        <li> asd </li>
-                        <li> asd </li>
-                    </ul>
-                </div>
-            </section>
-            <footer class="card-footer">Today Vratsa</footer>
-        </div>
-        <div class="card">
-            <header class="card-header">
-                <h3 class="card-title">BMW 330xi tuning</h3>
-                <button mat-icon-button color="warn" class="favorites">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-            </header>
-            <div class="image-container">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVVYXFipTj1QaNgnrFs3xeLHuW649BD83Plw&usqp=CAU">
-                <div class="price"></div>
-            </div>
-            <section class="card-content">
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
-                <div class="specs">
-                    <ul>
-                        <li> asd </li>
-                        <li> asd </li>
-                        <li> asd </li>
-                    </ul>
-                </div>
-            </section>
-            <footer class="card-footer">Today Vratsa</footer>
-        </div>
-        <div class="card">
-            <header class="card-header">
-                <h3 class="card-title">BMW 330xi tuning</h3>
-                <button mat-icon-button color="warn" class="favorites">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-            </header>
-            <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1549288830-f4746d294441?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fGNhcnN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80">
-                <div class="price"></div>
-            </div>
-            <section class="card-content">
-                <div class="card-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, minus?</div>
-                <div class="specs">
-                    <ul>
-                        <li> asd </li>
-                        <li> asd </li>
-                        <li> asd </li>
-                    </ul>
-                </div>
-            </section>
-            <footer class="card-footer">Today Vratsa</footer>
-        </div> -->
 
     </div>
 

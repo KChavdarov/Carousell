@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { CarsService } from '../cars.service';
 import { locations } from 'src/app/shared/locations';
 import { colors } from 'src/app/shared/colors';
@@ -31,7 +31,7 @@ export class CreateComponent implements OnInit {
   };
 
   makeSelectionHandler(make: string) {
-    this.models$ = this.carsService.getModels(make);
+    this.models$ = this.carsService.getModels(make).pipe(shareReplay(1));
   }
 
   modelSelectionHandler(model: string) {

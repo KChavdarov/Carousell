@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { CarsService } from '../cars.service';
 import { locations } from 'src/app/shared/locations';
 import { colors } from 'src/app/shared/colors';
 import { bodyStyles } from 'src/app/shared/bodyStyles';
 import { Store } from '@ngrx/store';
 import { carsQueryUpdate } from '../+store/actions';
-import { CarQuery } from 'src/app/shared/models/CarQuery';
 
 
 @Component({
@@ -16,15 +14,19 @@ import { CarQuery } from 'src/app/shared/models/CarQuery';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   panelOpenState = false;
-  makes$!: Observable<string[]>;
-  models$!: Observable<{ _id: string, bodyStyles: string[]; }[]>;
-  bodyStyles$!: Observable<string[] | undefined>;
+
   locations = locations;
   colors = colors;
-  bodyStyles = bodyStyles;
+  bodyStylesList = bodyStyles;
 
+  makes!: string[];
+  models!: { _id: string, bodyStyles: string[]; }[];
+  bodyStyles = this.bodyStylesList;
+
+  makeSubscription!: Subscription;
+  modelsSubscription!: Subscription;
 
   @ViewChild('form') form!: NgForm;
   files: {} = {};
@@ -32,25 +34,30 @@ export class SearchComponent implements OnInit {
   constructor(private carsService: CarsService, private store: Store) {}
 
   ngOnInit(): void {
-    this.makes$ = this.carsService.getMakes();
-
+    this.makeSubscription = this.carsService.getMakes().subscribe(makes => this.makes = makes);
   };
 
+  ngOnDestroy() {
+    this.makeSubscription?.unsubscribe();
+    this.modelsSubscription?.unsubscribe();
+  }
+
   makeSelectionHandler(make: string) {
-    this.models$ = this.carsService.getModels(make);
+    this.modelsSubscription = this.carsService.getModels(make).subscribe(models => this.models = models);
   }
 
   modelSelectionHandler(model: string) {
-    this.bodyStyles$ = this.models$.pipe(
-      map(models$ => models$.find(m => m._id == model)),
-      map(m => m ? m.bodyStyles : m)
-    );
+    this.bodyStyles = this.models.find(m => m._id == model)?.bodyStyles || this.bodyStylesList;
   }
 
   submitHandler() {
     const data = Object.assign({}, this.form.value);
     data.page = 1;
-    data.perPage = 25;
+    data.perPage = 12;
     this.store.dispatch(carsQueryUpdate(data));
+  }
+
+  onReset() {
+    this.bodyStyles = this.bodyStylesList;
   }
 }

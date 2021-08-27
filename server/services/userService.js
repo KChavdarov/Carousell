@@ -5,6 +5,8 @@ module.exports = {
     getUserById,
     createUser,
     editUser,
+    likeCar,
+    unlikeCar,
 };
 
 async function getUserById(id) {
@@ -20,6 +22,26 @@ async function createUser(data) {
     return user.save();
 };
 
+async function likeCar(userId, carId) {
+    const user = await getUserById(userId);
+    if (user) {
+        user.favorites.push(carId);
+        return user.save();
+    } else {
+        return user;
+    }
+}
+
+async function unlikeCar(userId, carId) {
+    const user = await getUserById(userId);
+    if (user) {
+        let favorites = user.favorites.filter(favoriteId => favoriteId != carId);
+        Object.assign(user, { favorites });
+        return user.save();
+    } else {
+        return user;
+    }
+}
 
 //TODO:
 async function editUser(id, data) {

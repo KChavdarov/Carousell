@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { authError, authGuest, authSuccess, authVerify } from './+store/actions';
 import { AuthService } from './auth/auth.service';
 
@@ -10,27 +11,32 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'Carousell';
-  isLoading = true;
+  // isLoading = true;
+  subscription!: Subscription;
 
   constructor(private store: Store<AuthService>, private authService: AuthService) {};
 
   ngOnInit() {
-    // this.store.dispatch(authVerify())
+    this.store.dispatch(authVerify())
 
-    this.authService.verifyAuth().subscribe(
-      user => {
-        if (user) {
-          this.store.dispatch(authSuccess(user));
-        } else {
-          this.store.dispatch(authGuest());
-        }
-        this.isLoading = false;
-      },
-      error => {
-        this.isLoading = false;
-        this.store.dispatch(authError({ error }));
-      }
-    );
+    // this.subscription = this.authService.verifyAuth().subscribe(
+    //   user => {
+    //     if (user) {
+    //       this.store.dispatch(authSuccess(user));
+    //     } else {
+    //       this.store.dispatch(authGuest());
+    //     }
+    //     this.isLoading = false;
+    //   },
+    //   error => {
+    //     this.isLoading = false;
+    //     this.store.dispatch(authError({ error }));
+    //   }
+    // );
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
 }

@@ -4,12 +4,10 @@ import { MaterialModule } from '../material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from '../auth/login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -18,7 +16,7 @@ import { SharedModule } from '../shared/shared.module';
     HomeComponent,
     FooterComponent,
   ],
-  entryComponents: [LoginComponent, ConfirmationDialogComponent],
+  entryComponents: [ConfirmationDialogComponent],
   imports: [
     CommonModule,
     MaterialModule,

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="form-container">
-        <form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()">
+        <form #form="ngForm" enctype="multipart/form-data" (ngSubmit)="submitHandler()" (reset)="onReset()">
             <div class="form-divider">
                 <header class="form-header">
                     <h2>Detailed Search</h2>
@@ -9,7 +9,7 @@
                     <mat-form-field class="form-field">
                         <mat-label>Brand</mat-label>
                         <mat-select name="make" #make="ngModel" matInput type="text" placeholder="Car brand" (selectionChange)="makeSelectionHandler(make.value)" ngModel>
-                            <mat-option *ngFor="let make of (makes$ | async)" [value]="make">{{make}}</mat-option>
+                            <mat-option *ngFor="let make of makes" [value]="make">{{make}}</mat-option>
                         </mat-select>
                         <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
                     </mat-form-field>
@@ -17,8 +17,8 @@
                     <mat-form-field class="form-field">
                         <mat-label>Model</mat-label>
                         <mat-select name="model" #model="ngModel" matInput type="text" placeholder="Car model" (selectionChange)="modelSelectionHandler(model.value)" ngModel>
-                            <mat-option *ngIf="!(models$ | async)" disabled>Please select car brand first</mat-option>
-                            <mat-option *ngFor="let model of (models$ | async)" [value]="model._id">{{model._id}}</mat-option>
+                            <mat-option *ngIf="!models" disabled>Please select car brand first</mat-option>
+                            <mat-option *ngFor="let model of models" [value]="model._id">{{model._id}}</mat-option>
                         </mat-select>
                         <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
                     </mat-form-field>
@@ -34,10 +34,10 @@
                     <mat-form-field class="form-field">
                         <mat-label>Body style</mat-label>
                         <mat-select #bodyStyle="ngModel" name="bodyStyle" matInput type="text" placeholder="Body style" ngModel>
-                            <ng-container *ngIf="!(bodyStyles$ | async)">
-                                <mat-option *ngFor="let bodyStyle of bodyStyles" [value]="bodyStyle">{{bodyStyle}}</mat-option>
+                            <ng-container *ngIf="!bodyStyles">
+                                <mat-option *ngFor="let bodyStyle of bodyStylesList" [value]="bodyStyle">{{bodyStyle}}</mat-option>
                             </ng-container>
-                            <mat-option *ngFor="let bodyStyle of (bodyStyles$ | async)" [value]="bodyStyle">{{bodyStyle}}</mat-option>
+                            <mat-option *ngFor="let bodyStyle of bodyStyles" [value]="bodyStyle">{{bodyStyle}}</mat-option>
                         </mat-select>
                         <mat-icon class="mat-primary" matPrefix>directions_car</mat-icon>
                     </mat-form-field>

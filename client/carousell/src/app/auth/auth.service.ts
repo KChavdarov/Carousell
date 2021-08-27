@@ -23,5 +23,12 @@ export class AuthService {
     return this.http.get<User>('/api/user/logout');
   }
 
+  likeCar(carId: string) {
+    return this.http.get<User>('/api/user/bookmark/' + carId);
+  }
+  
+  unlikeCar(carId: string) {
+    return this.http.delete<User>('/api/user/bookmark/' + carId);
+  }
 
 }

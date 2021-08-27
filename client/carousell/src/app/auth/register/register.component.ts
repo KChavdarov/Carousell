@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
-import { authError, authSuccess } from '../../+store/actions';
+import { authRegister, } from '../../+store/actions';
 import { AuthState } from '../../+store/reducers';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +31,7 @@ export class RegisterComponent implements OnInit {
     return this.form.get('passwords.confirmPassword');
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private store: Store<AuthState>) {}
+  constructor(private fb: FormBuilder, private store: Store<AuthState>) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -100,16 +98,6 @@ export class RegisterComponent implements OnInit {
       password: this.form.get('passwords.password')?.value,
     };
 
-    this.authService.register(data).subscribe(
-      res => {
-        console.log(res);
-        this.store.dispatch(authSuccess(res));
-        this.router.navigate(['/']);
-      },
-      error => {
-        this.store.dispatch(authError({error}));
-      }
-    );
+    this.store.dispatch(authRegister(data));
   }
-
 }
