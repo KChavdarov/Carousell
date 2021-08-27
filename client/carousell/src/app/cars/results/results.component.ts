@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Car } from 'src/app/shared/models/Car';
@@ -42,7 +42,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
       if (query) {
         this.query = Object.assign({}, query);
         this.summary = this.flattenObject(query);
-        console.log(this.summary)
       }
     });
   }

@@ -9,6 +9,7 @@
             </mat-nav-list>
             <ng-template #authSidebar>
                 <mat-nav-list>
+                    <a mat-list-item [routerLink]="['/cars/favorites']">Favorites</a>
                     <a mat-list-item [routerLink]="['/cars/search']">Browse cars</a>
                     <a mat-list-item [routerLink]="['/cars/create']">Add listing</a>
                 </mat-nav-list>
@@ -35,6 +36,7 @@
                         </div>
                         <ng-template #authToolbar>
                             <div class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
+                                <a [routerLink]="['/cars/favorites']" routerLinkActive="active" mat-flat-button color="primary">Favorites</a>
                                 <a [routerLink]="['/cars/search']" routerLinkActive="active" mat-flat-button color="primary">Browse cars</a>
                                 <a [routerLink]="['/cars/create']" routerLinkActive="active" mat-flat-button color="primary">Add listing</a>
                                 <a (click)="logout()" mat-flat-button color="primary">Logout</a>

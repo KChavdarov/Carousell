@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { authBookmarkInit, authBookmarkRemove } from 'src/app/+store/actions';
@@ -12,6 +12,7 @@ import { Car } from '../models/Car';
 })
 export class ListingCardComponent implements OnInit, OnDestroy {
   @Input() car!: Car;
+  @Output() likeToggle = new EventEmitter<any>();
   subscription!: Subscription;
   isAuth = false;
   isUnlikeable = false;
@@ -33,10 +34,12 @@ export class ListingCardComponent implements OnInit, OnDestroy {
 
   addToFavorites(carId: string = '') {
     this.store.dispatch(authBookmarkInit({ carId }));
+    this.likeToggle.emit({ liked: this.car._id });
   }
 
   removeFromFavorites(carId: string = '') {
     this.store.dispatch(authBookmarkRemove({ carId }));
+    this.likeToggle.emit({ unliked: this.car._id });
   }
 
   ngOnDestroy() {

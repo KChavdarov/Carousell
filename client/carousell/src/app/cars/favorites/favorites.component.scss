@@ -6,9 +6,9 @@
 
 mat-paginator {
     width: 100%;
-    border-radius: 4px;
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-    margin-bottom: 1rem;
+    // border-radius: 4px;
+    // box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    // margin-bottom: 1rem;
 }
 
 .grid-container {
@@ -19,7 +19,7 @@ mat-paginator {
 }
 
 
-.query-summary {
+.header-container {
     margin: 2rem auto;
     flex-grow: 1;
     border-radius: 4px;
@@ -49,12 +49,12 @@ span.selection {
     text-transform: capitalize;
 }
 
-header.results-header{
+header.results-header {
     display: flex;
-    margin: 2rem 2% 1rem 2%;
+    margin: 2rem 2% 0 2%;
 }
 
-h2.title{
+h2.title {
     text-align: center;
     text-decoration: none;
     color: #3F51B5;

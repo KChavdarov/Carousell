@@ -6,10 +6,15 @@ module.exports = {
     getCarById,
     addSubscriber,
     removeSubscriber,
+    getFavorites,
 };
 
 async function getCarById(id) {
     return Car.findById(id);
+}
+
+async function getFavorites(userId) {
+    return Car.find({ subscribers: userId }).sort('-createdAt');
 }
 
 async function addSubscriber(userId, carId) {
@@ -53,7 +58,8 @@ async function searchCar(data) {
 
     const cars = await Car.find(query)
         .skip(Number(perPage) * (Number(page) - 1))
-        .limit(Number(perPage));
+        .limit(Number(perPage))
+        .sort('-createdAt');
 
     const count = await Car.countDocuments(query);
 

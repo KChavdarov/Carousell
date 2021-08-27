@@ -14,6 +14,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { ResultsAvailableGuard } from '../shared/guards/results-available.guard';
 import { SharedModule } from '../shared/shared.module';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { DetailsComponent } from './details/details.component';
 
 
 
@@ -22,6 +24,8 @@ import { SharedModule } from '../shared/shared.module';
     CreateComponent,
     SearchComponent,
     ResultsComponent,
+    FavoritesComponent,
+    DetailsComponent,
   ],
   imports: [
     CommonModule,

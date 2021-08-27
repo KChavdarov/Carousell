@@ -17,11 +17,14 @@ router.get('/makes', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
+router.get('/details/:id', async (req, res) => {
+    const carId = req.params.id;
     try {
-
+        const car = await req.storage.getCarById(carId);
+        res.status(200).json(car);
     } catch (error) {
-
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
     }
 });
 
@@ -58,6 +61,18 @@ router.post('/search', async (req, res) => {
     try {
         const result = await req.storage.searchCar(req.body);
         res.status(200).json(result);
+    } catch (error) {
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.get('/favorites', isAuth(), async (req, res) => {
+    const userId = req.user._id;
+    try {
+        const cars = await req.storage.getFavorites(userId);
+        res.status(200).json(cars);
+
     } catch (error) {
         const errors = parseErrorMessage(error);
         res.status(400).json({ message: errors });

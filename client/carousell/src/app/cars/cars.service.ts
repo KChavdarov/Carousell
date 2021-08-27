@@ -8,6 +8,10 @@ export class CarsService {
 
   constructor(private http: HttpClient) {}
 
+  getCar(id: string) {
+    return this.http.get<Car>('/api/cars/details/' + id);
+  }
+
   createCar(data: FormData) {
     return this.http.post<Car>('/api/cars/create', data);
   }
@@ -22,5 +26,9 @@ export class CarsService {
 
   searchCars(query: CarQuery) {
     return this.http.post<{ page: number, perPage: number, count: number, cars: Car[]; }>('/api/cars/search', query);
+  }
+
+  getFavorites() {
+    return this.http.get<Car[]>('/api/cars/favorites');
   }
 }
