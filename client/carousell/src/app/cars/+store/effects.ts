@@ -16,6 +16,5 @@ export class CarsEffects {
         ))
     ));
 
-
     constructor(private actions$: Actions, private carsService: CarsService, private router: Router) {};
 }

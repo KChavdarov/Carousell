@@ -6,13 +6,119 @@
         <div class=" grid-container">
         </div>
 
-        <div class="details-content">
-
-            <header>
-                <h3>{{car.make}} {{car.model}} {{car.title}}</h3>
-            </header>
+        <div class="spinner-container" *ngIf="!car">
+            <mat-spinner></mat-spinner>
         </div>
 
+        <div class="details-content" *ngIf="car">
 
+            <header class="details-header">
+                <h3 class="title">{{car.make}} {{car.model}} {{car.title}}</h3>
+                <h3 class="price">&euro; {{car.price | number:'2.0-0'}}</h3>
+                <button mat-icon-button color="warn" class="favorites" *ngIf="!isAuth" disabled>
+                    <mat-icon>favorite</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" class="favorites" *ngIf="isAuth && !isUnlikeable" (click)="addToFavorites(car._id)">
+                    <mat-icon>favorite_border</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" class="favorites" *ngIf="isAuth && isUnlikeable" (click)="removeFromFavorites(car._id)">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+            </header>
+
+            <div class="carousel-container">
+                <carousel [cellsToShow]="1" [height]="300" [loop]="true" [dots]="true" arrowsTheme="dark">
+                    <div *ngFor="let image of car.images" class="carousel-cell">
+                        <img [src]="image">
+                    </div>
+                </carousel>
+            </div>
+
+            <p class="description">{{car.description}}</p>
+            <ul class="primary">
+                <li>
+                    <mat-icon>build</mat-icon> <span class="detail">{{car.engine | titlecase}}</span>
+                </li>
+                <li>
+                    <mat-icon>miscellaneous_services</mat-icon> <span class="detail">{{car.transmission | titlecase}}</span>
+                </li>
+                <li>
+                    <mat-icon>today</mat-icon> <span class="detail">{{car.year}}</span>
+                </li>
+                <li>
+                    <mat-icon>add_road</mat-icon> <span class="detail">{{car.mileage}} km</span>
+                </li>
+                <li>
+                    <mat-icon>directions_car</mat-icon> <span class="detail">{{car.bodyStyle}}</span>
+                </li>
+                <li>
+                    <mat-icon>palette</mat-icon> <span class="detail">{{car.color}}</span>
+                </li>
+            </ul>
+
+        </div>
     </div>
+
+    <ng-container *ngIf="car">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Additional information
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="specs">
+                    <ul class="secondary">
+                        <li>ESP: <span class="selection">{{car.safety.esp ? 'yes': ''}}</span></li>
+                        <li>ABS: <span class="selection">{{car.safety.abs ? 'yes': ''}}</span></li>
+                        <li>Airbags: <span class="selection">{{car.safety.airbags ? 'yes': ''}}</span></li>
+                        <li>Camera: <span class="selection">{{car.safety.camera ? 'yes': ''}}</span></li>
+                    </ul>
+                    <ul class="secondary">
+                        <li>Parktronic: <span class="selection">{{car.safety.parktronic ? 'yes': 'no'}}</span></li>
+                        <li>Distronic: <span class="selection">{{car.safety.distronic ? 'yes': 'no'}}</span></li>
+                        <li>Isofix: <span class="selection">{{car.safety.isofix ? 'yes': 'no'}}</span></li>
+                        <li>TPMS: <span class="selection">{{car.safety.tpms ? 'yes': 'no'}}</span></li>
+                    </ul>
+                    <ul class="secondary">
+                        <li>Aircon: <span class="selection">{{car.comfort.aircon ? 'yes': 'no'}}</span></li>
+                        <li>Sunroof: <span class="selection">{{car.comfort.sunroof ? 'yes': 'no'}}</span></li>
+                        <li>Satnav: <span class="selection">{{car.comfort.satnav ? 'yes': 'no'}}</span></li>
+                        <li>Xenon: <span class="selection">{{car.comfort.xenon ? 'yes': 'no'}}</span></li>
+                    </ul>
+                    <ul class="secondary">
+                        <li>Stereo: <span class="selection">{{car.comfort.stereo ? 'yes': 'no'}}</span></li>
+                        <li>Autopilot: <span class="selection">{{car.comfort.autopilot ? 'yes': 'no'}}</span></li>
+                        <li>Bluetooth: <span class="selection">{{car.comfort.bluetooth ? 'yes': 'no'}}</span></li>
+                        <li>Carplay: <span class="selection">{{car.comfort.carplay ? 'yes': 'no'}}</span></li>
+                    </ul>
+                    <ul class="secondary">
+                        <li>Registration: <span class="selection">{{car.others.registration ? 'yes': 'no'}}</span></li>
+                        <li>Insurance: <span class="selection">{{car.others.insurance ? 'yes': 'no'}}</span></li>
+                        <li>Serviced: <span class="selection">{{car.others.serviced ? 'yes': 'no'}}</span></li>
+                        <li>Armor: <span class="selection">{{car.others.armor ? 'yes': 'no'}}</span></li>
+                    </ul>
+                    <ul class="secondary">
+                        <li>4x4: <span class="selection">{{car.others['4x4'] ? 'yes': 'no'}}</span></li>
+                        <li>Cargo: <span class="selection">{{car.others.cargo ? 'yes': 'no'}}</span></li>
+                        <li>Refrigerator: <span class="selection">{{car.others.refrigerator ? 'yes': 'no'}}</span></li>
+                        <li>Learners: <span class="selection">{{car.others.learners ? 'yes': 'no'}}</span></li>
+                    </ul>
+
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <div class="content-wrapper buttons">
+            <ng-container *ngIf="isOwner">
+                <button [routerLink]="['/cars/edit/', car._id]" mat-raised-button color="primary">Edit</button>
+                <button color="warn" mat-raised-button (click)="deleteHandler(car._id ||'')">Delete</button>
+            </ng-container>
+            <ng-container *ngIf="!isOwner">
+                <button mat-raised-button color="primary">Contact Seller</button>
+            </ng-container>
+        </div>
+    </ng-container>
+
 </div>

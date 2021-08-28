@@ -7,10 +7,15 @@ module.exports = {
     addSubscriber,
     removeSubscriber,
     getFavorites,
+    deleteCar,
 };
 
 async function getCarById(id) {
     return Car.findById(id);
+}
+
+async function deleteCar(id) {
+    return Car.findByIdAndDelete(id);
 }
 
 async function getFavorites(userId) {

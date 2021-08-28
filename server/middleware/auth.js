@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { SALT_ROUNDS } = require('../config/index.js');
-const { getUserByEmail, createUser, getUserById, likeCar, unlikeCar } = require('../services/userService.js');
+const { getUserByEmail, createUser, getUserById, likeCar, unlikeCar, publishCar, unpublishCar, } = require('../services/userService.js');
 
 module.exports = () => {
     return (req, res, next) => {
@@ -10,12 +10,14 @@ module.exports = () => {
             verifyUser,
             likeCar,
             unlikeCar,
+            publishCar,
+            unpublishCar,
         };
         next();
     };
 };
 
-async function verifyUser(id){
+async function verifyUser(id) {
     return getUserById(id);
 }
 

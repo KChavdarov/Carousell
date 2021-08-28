@@ -15,7 +15,7 @@ import { carsQueryUpdate } from '../+store/actions';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  panelOpenState = false;
+  panelOpenState = true;
 
   locations = locations;
   colors = colors;

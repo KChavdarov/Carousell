@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Car } from '../shared/models/Car';
 import { CarQuery } from '../shared/models/CarQuery';
+import { User } from '../shared/models/User';
 
 @Injectable()
 export class CarsService {
@@ -13,7 +14,7 @@ export class CarsService {
   }
 
   createCar(data: FormData) {
-    return this.http.post<Car>('/api/cars/create', data);
+    return this.http.post<{ car: Car, user: User; }>('/api/cars/create', data);
   }
 
   getMakes() {
@@ -30,5 +31,9 @@ export class CarsService {
 
   getFavorites() {
     return this.http.get<Car[]>('/api/cars/favorites');
+  }
+
+  deleteCar(id: string) {
+    return this.http.delete<User>('/api/cars/' + id);
   }
 }

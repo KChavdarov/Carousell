@@ -1,8 +1,9 @@
-const { isAuth } = require('../middleware/guards');
+const { isAuth, isOwner } = require('../middleware/guards');
 const { uploadImage } = require('../util/cloudinary');
 const { parseForm } = require('../util/parseForm');
 const { parseErrorMessage } = require('../util/parser');
-
+const { sanitizeUserData } = require('../util/sanitize.js');
+const { preLoad } = require('../util/preload.js');
 
 
 const router = require('express').Router();
@@ -50,7 +51,8 @@ router.post('/create', isAuth(), async (req, res) => {
         data.images = images;
         data.owner = userId;
         const car = await req.storage.createCar(data);
-        res.status(201).json(car);
+        const user = await req.auth.publishCar(userId, car._id);
+        res.status(201).json({ car, user: sanitizeUserData(user) });
     } catch (error) {
         const errors = parseErrorMessage(error);
         res.status(400).json({ message: errors });
@@ -73,6 +75,21 @@ router.get('/favorites', isAuth(), async (req, res) => {
         const cars = await req.storage.getFavorites(userId);
         res.status(200).json(cars);
 
+    } catch (error) {
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.delete('/:id', preLoad(), isOwner(), async (req, res, next) => {
+    const userId = req.user._id;
+    const carId = req.params.id;
+    try {
+        const [user, car] = await Promise.all([
+            req.auth.unpublishCar(userId, carId),
+            req.storage.deleteCar(carId)
+        ]);
+        res.status(200).json(user);
     } catch (error) {
         const errors = parseErrorMessage(error);
         res.status(400).json({ message: errors });

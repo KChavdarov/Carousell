@@ -16,6 +16,7 @@ import { ResultsAvailableGuard } from '../shared/guards/results-available.guard'
 import { SharedModule } from '../shared/shared.module';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { DetailsComponent } from './details/details.component';
+import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -27,6 +28,7 @@ import { DetailsComponent } from './details/details.component';
     FavoritesComponent,
     DetailsComponent,
   ],
+  entryComponents: [ConfirmationDialogComponent],
   imports: [
     CommonModule,
     SharedModule,

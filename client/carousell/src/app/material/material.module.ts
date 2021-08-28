@@ -18,7 +18,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+
+
 
 const components = [
   LayoutModule,
@@ -46,6 +49,8 @@ const components = [
   MatTabsModule,
   MatExpansionModule,
   MatPaginatorModule,
+  IvyCarouselModule,
+  
 ];
 
 @NgModule({

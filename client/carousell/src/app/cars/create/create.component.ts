@@ -5,6 +5,9 @@ import { map, shareReplay } from 'rxjs/operators';
 import { CarsService } from '../cars.service';
 import { locations } from 'src/app/shared/locations';
 import { colors } from 'src/app/shared/colors';
+import { Store } from '@ngrx/store';
+import { authSuccess } from 'src/app/+store/actions';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +26,7 @@ export class CreateComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
   files: {} = {};
 
-  constructor(private carsService: CarsService) {}
+  constructor(private carsService: CarsService, private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.makes$ = this.carsService.getMakes();
@@ -60,7 +63,10 @@ export class CreateComponent implements OnInit {
 
     console.log(this.form.value);
 
-    this.carsService.createCar(formData).subscribe(res => console.log(res));
+    this.carsService.createCar(formData).subscribe(({ car, user }) => {
+      this.store.dispatch(authSuccess(user));
+      this.router.navigate(['/cars', 'details', car._id]);
+    });
 
   }
 }
