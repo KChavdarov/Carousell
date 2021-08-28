@@ -15,10 +15,12 @@ import { AuthService } from './auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthEffects } from './+store/effects';
 import { reducers } from './+store';
+import { ProfileComponent } from './user/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ const { COOKIE_NAME } = require('../config');
 const { isGuest, isAuth } = require('../middleware/guards');
 const { parseErrorMessage } = require('../util/parser.js');
 const { createToken } = require('../util/jwt.js');
-const sanitizeUserData = require('../util/sanitize.js');
+const { sanitizeUserData } = require('../util/sanitize.js');
 
 router.post('/register', isGuest(),
     body('firstName', 'Please enter your first name!').trim().notEmpty(),

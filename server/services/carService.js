@@ -8,7 +8,14 @@ module.exports = {
     removeSubscriber,
     getFavorites,
     deleteCar,
+    getUserCars,
+    getLatest,
+    editCar
 };
+
+async function getLatest() {
+    return Car.find().limit(12).sort('-createdAt');
+}
 
 async function getCarById(id) {
     return Car.findById(id);
@@ -20,6 +27,10 @@ async function deleteCar(id) {
 
 async function getFavorites(userId) {
     return Car.find({ subscribers: userId }).sort('-createdAt');
+}
+
+async function getUserCars(userId) {
+    return Car.find({ owner: userId }).sort('-createdAt');
 }
 
 async function addSubscriber(userId, carId) {
@@ -82,3 +93,10 @@ async function createCar(data) {
     const car = new Car(data);
     return car.save();
 }
+
+async function editCar(id, data) {
+    const car = await getCarById(id);
+    Object.assign(car, data);
+    car.save();
+    return car;
+};

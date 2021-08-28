@@ -1,4 +1,6 @@
-module.exports = function sanitizeUserData(user) {
+function sanitizeUserData(user) {
     const { _id, firstName, lastName, email, phone, createdAt, updatedAt, cars, favorites } = user;
     return { _id, firstName, lastName, email, phone, createdAt, updatedAt, cars, favorites };
 };
+
+module.exports = { sanitizeUserData };

@@ -17,6 +17,10 @@ export class CarsService {
     return this.http.post<{ car: Car, user: User; }>('/api/cars/create', data);
   }
 
+  editCar(id: string, data: FormData) {
+    return this.http.put<Car>('/api/cars/' + id, data);
+  }
+
   getMakes() {
     return this.http.get<string[]>('/api/models/makes');
   }
@@ -31,6 +35,10 @@ export class CarsService {
 
   getFavorites() {
     return this.http.get<Car[]>('/api/cars/favorites');
+  }
+
+  getMyCars() {
+    return this.http.get<Car[]>('/api/cars/user');
   }
 
   deleteCar(id: string) {

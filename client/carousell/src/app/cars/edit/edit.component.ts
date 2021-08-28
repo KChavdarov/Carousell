@@ -1,21 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { CarsService } from '../cars.service';
 import { locations } from 'src/app/shared/locations';
 import { colors } from 'src/app/shared/colors';
 import { Store } from '@ngrx/store';
 import { authSuccess } from 'src/app/+store/actions';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Car } from 'src/app/shared/models/Car';
 
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class EditComponent implements OnInit {
+  car!: Car;
+  subscription!: Subscription;
   makes$!: Observable<string[]>;
   models$!: Observable<{ _id: string, bodyStyles: string[]; }[]>;
   bodyStyles$!: Observable<string[] | undefined>;
@@ -26,15 +29,26 @@ export class CreateComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
   files: {} = {};
 
-  constructor(private carsService: CarsService, private store: Store, private router: Router) {}
+  constructor(private route: ActivatedRoute, private carsService: CarsService, private store: Store, private router: Router) {}
 
   ngOnInit(): void {
-    this.makes$ = this.carsService.getMakes();
+    this.subscription = this.carsService.getCar(this.route.snapshot.params.id).pipe(
+      tap(car => {
+        this.car = Object.assign({}, car);
+        this.makeSelectionHandler(car.make);
+        this.modelSelectionHandler(car.model);
+      }),
+    ).subscribe();
 
+    this.makes$ = this.carsService.getMakes();
   };
 
   makeSelectionHandler(make: string) {
     this.models$ = this.carsService.getModels(make).pipe(shareReplay(1));
+  }
+
+  removeImage(target: string) {
+    this.car.images = this.car.images.filter(image => image != target);
   }
 
   modelSelectionHandler(model: string) {
@@ -52,9 +66,7 @@ export class CreateComponent implements OnInit {
     const formData = new FormData();
 
     for (let [k, v] of Object.entries(this.form.value)) {
-      if (k != 'images') {
-        formData.append(k, JSON.stringify(v));
-      }
+      formData.append(k, JSON.stringify(v));
     }
 
     for (let [k, v] of Object.entries(this.files)) {
@@ -63,8 +75,7 @@ export class CreateComponent implements OnInit {
 
     console.log(this.form.value);
 
-    this.carsService.createCar(formData).subscribe(({ car, user }) => {
-      this.store.dispatch(authSuccess(user));
+    this.carsService.editCar(this.route.snapshot.params.id, formData).subscribe(car => {
       this.router.navigate(['/cars', car._id]);
     });
 

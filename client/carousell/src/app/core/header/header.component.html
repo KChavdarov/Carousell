@@ -9,9 +9,12 @@
             </mat-nav-list>
             <ng-template #authSidebar>
                 <mat-nav-list>
-                    <a mat-list-item [routerLink]="['/cars/favorites']">Favorites</a>
                     <a mat-list-item [routerLink]="['/cars/search']">Browse cars</a>
+                    <a mat-list-item [routerLink]="['/cars/favorites']">Favorites</a>
+                    <a mat-list-item [routerLink]="['/cars/favorites']">My cars</a>
                     <a mat-list-item [routerLink]="['/cars/create']">Add listing</a>
+                    <a mat-list-item [routerLink]="['/cars/user']">My profile</a>
+                    <a mat-list-item (click)="logout()">logout</a>
                 </mat-nav-list>
             </ng-template>
         </ng-container>
@@ -28,21 +31,34 @@
                         carousell
                     </span>
                     <ng-container *ngIf="!isLoading">
-                        <div *ngIf="!(user$ | async); else authToolbar" class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
-                            <a [routerLink]="['/cars/search']" routerLinkActive="active" mat-flat-button color="primary">Browse cars</a>
-                            <a [routerLink]="['/user/login']" routerLinkActive="active" mat-flat-button color="primary">Login</a>
-                            <a [routerLink]="['/user/register']" routerLinkActive="active" mat-flat-button color="primary">Register</a>
-                            <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
-                        </div>
                         <ng-template #authToolbar>
-                            <div class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
-                                <a [routerLink]="['/cars/favorites']" routerLinkActive="active" mat-flat-button color="primary">Favorites</a>
+                            <div *ngIf="!(user$ | async) as user; else authToolbar" class="buttons" [ngClass]="{hidden: (isHandset$ | async)}">
                                 <a [routerLink]="['/cars/search']" routerLinkActive="active" mat-flat-button color="primary">Browse cars</a>
-                                <a [routerLink]="['/cars/create']" routerLinkActive="active" mat-flat-button color="primary">Add listing</a>
-                                <a (click)="logout()" mat-flat-button color="primary">Logout</a>
+                                <a [routerLink]="['/user/login']" routerLinkActive="active" mat-flat-button color="primary">Login</a>
+                                <a [routerLink]="['/user/register']" routerLinkActive="active" mat-flat-button color="primary">Register</a>
                                 <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
                             </div>
                         </ng-template>
+                        <div class="buttons" *ngIf="(user$ | async) as user; else authToolbar" [ngClass]="{hidden: (isHandset$ | async)}">
+                            <a [routerLink]="['/cars/search']" routerLinkActive="active" mat-flat-button color="primary">Browse cars</a>
+                            <a [routerLink]="['/cars/favorites']" [matBadge]="user.favorites?.length" matBadgeSize="small" matBadgeColor="accent" [matBadgeHidden]="user.favorites?.length==0" routerLinkActive="active" mat-flat-button color="primary">Favorites</a>
+                            <a [routerLink]="['/cars/user']" [matBadge]="user.cars?.length" matBadgeSize="small" matBadgeColor="accent" [matBadgeHidden]="user.cars?.length==0" routerLinkActive="active" mat-flat-button color="primary">My cars</a>
+                            <a [routerLink]="['/cars/create']" routerLinkActive="active" mat-flat-button color="primary">Add listing</a>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                <mat-icon>account_circle</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <a [routerLink]="['/user/profile']" mat-menu-item>
+                                    <mat-icon>manage_accounts</mat-icon>
+                                    <span>My profile</span>
+                                </a>
+                                <button mat-menu-item (click)="logout()">
+                                    <mat-icon>logout</mat-icon>
+                                    <span>Logout</span>
+                                </button>
+                            </mat-menu>
+                            <!-- <button mat-raised-button color="primary" (click)="openAuthDialog()">Open Dialog</button> -->
+                        </div>
                     </ng-container>
                 </div>
             </mat-toolbar>

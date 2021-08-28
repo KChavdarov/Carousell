@@ -15,15 +15,17 @@
             <header class="details-header">
                 <h3 class="title">{{car.make}} {{car.model}} {{car.title}}</h3>
                 <h3 class="price">&euro; {{car.price | number:'2.0-0'}}</h3>
-                <button mat-icon-button color="warn" class="favorites" *ngIf="!isAuth" disabled>
-                    <mat-icon>favorite</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" class="favorites" *ngIf="isAuth && !isUnlikeable" (click)="addToFavorites(car._id)">
-                    <mat-icon>favorite_border</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" class="favorites" *ngIf="isAuth && isUnlikeable" (click)="removeFromFavorites(car._id)">
-                    <mat-icon>favorite</mat-icon>
-                </button>
+                <ng-container *ngIf="!isOwner">
+                    <button mat-icon-button color=" warn" class="favorites" *ngIf="!isAuth" disabled>
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" class="favorites" *ngIf="isAuth && !isUnlikeable" (click)="addToFavorites(car._id)">
+                        <mat-icon>favorite_border</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" class="favorites" *ngIf="isAuth && isUnlikeable" (click)="removeFromFavorites(car._id)">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                </ng-container>
             </header>
 
             <div class="carousel-container">

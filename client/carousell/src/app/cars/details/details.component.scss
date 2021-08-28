@@ -86,12 +86,12 @@ ul.primary li {
     display: flex;
 }
 
-ul.secondary {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-    grid-gap: 0.2rem;
-    justify-items: center;
-}
+// ul.secondary {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+//     grid-gap: 0.2rem;
+//     justify-items: center;
+// }
 
 
 .mat-expansion-panel {
@@ -101,6 +101,11 @@ ul.secondary {
 .mat-accordion>.mat-expansion-panel-spacing:last-child,
 .mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {
     margin-bottom: 1rem;
+}
+
+.description {
+    padding: 2rem 1rem;
+    font-weight: 100;
 }
 
 .buttons {

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
@@ -26,7 +26,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
   isUnlikeable = false;
 
 
-  constructor(private carsService: CarsService, private route: ActivatedRoute, private store: Store, private dialog: MatDialog) {}
+  constructor(
+    private carsService: CarsService,
+    private route: ActivatedRoute,
+    private store: Store,
+    private dialog: MatDialog,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.routeSubscription = this.route.params.pipe(
@@ -53,7 +59,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
     dialog.afterClosed().pipe(
       filter(result => result == data.confirm),
       switchMap(result => this.carsService.deleteCar(carId)),
-    ).subscribe(user => { this.store.dispatch(authSuccess(user)); });
+    ).subscribe(user => {
+      this.store.dispatch(authSuccess(user));
+      this.router.navigate(['/']);
+    });
   }
 
   addToFavorites(carId: string = '') {

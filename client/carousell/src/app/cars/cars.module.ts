@@ -17,6 +17,8 @@ import { SharedModule } from '../shared/shared.module';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { DetailsComponent } from './details/details.component';
 import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
+import { MyCarsComponent } from './my-cars/my-cars.component';
+import { EditComponent } from './edit/edit.component';
 
 
 
@@ -27,6 +29,8 @@ import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confi
     ResultsComponent,
     FavoritesComponent,
     DetailsComponent,
+    MyCarsComponent,
+    EditComponent,
   ],
   entryComponents: [ConfirmationDialogComponent],
   imports: [

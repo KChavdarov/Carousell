@@ -4,11 +4,11 @@ import { Car } from 'src/app/shared/models/Car';
 import { CarsService } from '../cars.service';
 
 @Component({
-  selector: 'app-favorites',
-  templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.scss']
+  selector: 'app-my-cars',
+  templateUrl: './my-cars.component.html',
+  styleUrls: ['./my-cars.component.scss']
 })
-export class FavoritesComponent implements OnInit {
+export class MyCarsComponent implements OnInit {
 
   subscription!: Subscription;
   cars!: Car[];
@@ -22,7 +22,7 @@ export class FavoritesComponent implements OnInit {
   constructor(private carsService: CarsService) {}
 
   ngOnInit(): void {
-    this.subscription = this.carsService.getFavorites().subscribe(
+    this.subscription = this.carsService.getMyCars().subscribe(
       cars => {
         this.cars = cars;
         this.count = this.cars.length;
@@ -30,15 +30,6 @@ export class FavoritesComponent implements OnInit {
         this.isLoading = false;
       },
     );
-  }
-
-  unlike(event: any) {
-    console.log(event);
-    const unliked = event.unliked;
-    if (unliked) {
-      this.cars = this.cars.filter(c => c._id !== unliked);
-    }
-    this.count--;
   }
 
   onPageChange(event: any) {

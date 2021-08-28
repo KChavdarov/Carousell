@@ -42,3 +42,9 @@ ul li a {
     text-decoration: none;
 }
 
+.mat-badge-content,
+.mat-badge-active {
+    z-index: 100;
+    top: 0 !important;
+    right: 0 !important;
+}

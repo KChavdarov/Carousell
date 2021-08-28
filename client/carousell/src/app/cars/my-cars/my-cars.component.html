@@ -1,7 +1,7 @@
 <div class="page-content">
     <div class="header-container">
         <header class="results-header">
-            <h2 class="title">User favorites</h2>
+            <h2 class="title">User listings</h2>
         </header>
 
         <ng-container *ngIf="!isLoading">
@@ -11,15 +11,15 @@
             </ng-container>
 
             <section class="empty-list" *ngIf="!(count>0)">
-                <h4>You have not added any favorites yet</h4>
-                <p>Browse cars and the ones you like will appear in this section</p>
+                <h4>You have not posted any listings yet</h4>
+                <p>All listings you create will appear in this section</p>
             </section>
         </ng-container>
     </div>
 
     <div class="grid-container">
         <ng-container *ngFor="let car of cars">
-            <app-listing-card [car]="car" (likeToggle)="unlike($event)">
+            <app-listing-card [car]="car">
             </app-listing-card>
         </ng-container>
     </div>

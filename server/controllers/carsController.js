@@ -8,6 +8,17 @@ const { preLoad } = require('../util/preload.js');
 
 const router = require('express').Router();
 
+router.get('/', async (req, res) => {
+    try {
+        const cars = req.storage.getLatest();
+        res.status(200).json(cars);
+
+    } catch (error) {
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 router.get('/makes', async (req, res) => {
     try {
         const makes = await req.storage.getAllMakes();
@@ -25,7 +36,7 @@ router.get('/details/:id', async (req, res) => {
         res.status(200).json(car);
     } catch (error) {
         const errors = parseErrorMessage(error);
-        res.status(400).json({ message: errors });
+        res.status(404).json({ message: errors });
     }
 });
 
@@ -59,6 +70,33 @@ router.post('/create', isAuth(), async (req, res) => {
     }
 });
 
+router.put('/:id', preLoad(), isOwner(), async (req, res) => {
+    try {
+        let [data, files] = await parseForm(req);
+        const carId = req.params.id;
+        const images = data.images || [];
+
+        for (const file of files) {
+            if (file.type == 'image/jpeg' || file.type == 'image/png') {
+                const image = await uploadImage(file.path);
+                const url = image.url;
+                images.push(url);
+            }
+        }
+
+        if (images.length == 0) {
+            throw new Error('Please upload at least one image!');
+        }
+
+        data.images = images;
+        const car = await req.storage.editCar(carId, data);
+        res.status(201).json(car);
+    } catch (error) {
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
 router.post('/search', async (req, res) => {
     try {
         const result = await req.storage.searchCar(req.body);
@@ -73,6 +111,18 @@ router.get('/favorites', isAuth(), async (req, res) => {
     const userId = req.user._id;
     try {
         const cars = await req.storage.getFavorites(userId);
+        res.status(200).json(cars);
+
+    } catch (error) {
+        const errors = parseErrorMessage(error);
+        res.status(400).json({ message: errors });
+    }
+});
+
+router.get('/user', isAuth(), async (req, res) => {
+    const userId = req.user._id;
+    try {
+        const cars = await req.storage.getUserCars(userId);
         res.status(200).json(cars);
 
     } catch (error) {

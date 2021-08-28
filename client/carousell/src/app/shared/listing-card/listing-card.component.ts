@@ -14,6 +14,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
   @Input() car!: Car;
   @Output() likeToggle = new EventEmitter<any>();
   subscription!: Subscription;
+  isOwner = false;
   isAuth = false;
   isUnlikeable = false;
 
@@ -24,6 +25,7 @@ export class ListingCardComponent implements OnInit, OnDestroy {
       user => {
         if (user) {
           this.isAuth = true;
+          this.isOwner = !!(this.car._id && user.cars?.includes(this.car._id));
           if (user.favorites?.includes(this.car._id || '')) {
             this.isUnlikeable = true;
           } else { this.isUnlikeable = false; }

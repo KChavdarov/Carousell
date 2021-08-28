@@ -3,7 +3,9 @@ import { AuthGuard } from '../shared/guards/auth.guard';
 import { ResultsAvailableGuard } from '../shared/guards/results-available.guard';
 import { CreateComponent } from './create/create.component';
 import { DetailsComponent } from './details/details.component';
+import { EditComponent } from './edit/edit.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { MyCarsComponent } from './my-cars/my-cars.component';
 import { ResultsComponent } from './results/results.component';
 import { SearchComponent } from './search/search.component';
 
@@ -28,12 +30,22 @@ const routes: Routes = [
         component: FavoritesComponent,
         canActivate: [AuthGuard]
     },
-
-
-
-    
     {
-        path:':id',
+        path: 'user',
+        component: MyCarsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'edit/:id',
+        component: EditComponent,
+        canActivate: [AuthGuard]
+    },
+
+
+
+
+    {
+        path: ':id',
         component: DetailsComponent,
     }
 ];
