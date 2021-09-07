@@ -66,7 +66,12 @@ export class EditComponent implements OnInit {
     const formData = new FormData();
 
     for (let [k, v] of Object.entries(this.form.value)) {
-      formData.append(k, JSON.stringify(v));
+      // if (k == image'){
+
+      // };
+      if (k != 'images') {
+        formData.append(k, JSON.stringify(v));
+      }
     }
 
     for (let [k, v] of Object.entries(this.files)) {

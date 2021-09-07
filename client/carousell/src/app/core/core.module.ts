@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '../shared/shared.module';
 import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
+import { CarsService } from '../cars/cars.service';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confi
   exports: [
     HeaderComponent,
     FooterComponent,
-  ]
+  ],
+  providers: [CarsService]
 })
 export class CoreModule {}

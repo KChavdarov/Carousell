@@ -8,9 +8,9 @@ const { preLoad } = require('../util/preload.js');
 
 const router = require('express').Router();
 
-router.get('/', async (req, res) => {
+router.get('/latest', async (req, res) => {
     try {
-        const cars = req.storage.getLatest();
+        const cars = await req.storage.getLatest();
         res.status(200).json(cars);
 
     } catch (error) {

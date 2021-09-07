@@ -9,6 +9,10 @@ export class CarsService {
 
   constructor(private http: HttpClient) {}
 
+  getLatest(){
+    return this.http.get<Car[]>('/api/cars/latest')
+  }
+
   getCar(id: string) {
     return this.http.get<Car>('/api/cars/details/' + id);
   }
